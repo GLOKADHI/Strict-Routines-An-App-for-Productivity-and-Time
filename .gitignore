@@ -175,3 +175,7 @@ Thumbs.db
 # and enrollment identities remain excluded above and outside the source tree.
 !/browser_extension/setup-config.js
 !/browser_extension_monitor/setup-config.js
+
+# GitHub Pages product showcase source; generated output stays local.
+!/index.html
+!/.github/

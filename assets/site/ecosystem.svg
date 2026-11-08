@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="650" viewBox="0 0 900 650">
+<defs>
+ <linearGradient id="metal" x2=".9" y2="1"><stop stop-color="#344562"/><stop offset=".4" stop-color="#121c2d"/><stop offset="1" stop-color="#53617a"/></linearGradient>
+ <linearGradient id="rim" x2="1" y2="1"><stop stop-color="#47ccff"/><stop offset=".4" stop-color="#568bff"/><stop offset="1" stop-color="#a575e9"/></linearGradient>
+ <linearGradient id="surface" x2="1" y2="1"><stop stop-color="#1b2a42"/><stop offset="1" stop-color="#101724"/></linearGradient>
+ <linearGradient id="glass" x2="1" y2="1"><stop stop-color="#1b3558"/><stop offset="1" stop-color="#101b30"/></linearGradient>
+ <radialGradient id="ambient"><stop stop-color="#244d9138"/><stop offset="1" stop-color="#17213500"/></radialGradient>
+ <radialGradient id="horizon"><stop stop-color="#4d8fef60"/><stop offset="1" stop-color="#4d8fef00"/></radialGradient>
+ <pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse"><path d="M36 0H0V36" fill="none" stroke="#284166" stroke-width=".6"/></pattern>
+ <filter id="shadow" x="-30%" y="-30%" width="170%" height="190%"><feDropShadow dx="0" dy="16" stdDeviation="15" flood-color="#02050c" flood-opacity=".8"/></filter>
+</defs>
+<ellipse cx="470" cy="350" rx="420" ry="290" fill="url(#ambient)"/>
+<g opacity=".35" transform="translate(95 415) skewX(-40) scale(1 .46)"><rect width="690" height="310" fill="url(#grid)"/></g>
+<ellipse cx="465" cy="515" rx="355" ry="39" fill="url(#horizon)"/>
+<g fill="none" stroke-linecap="round"><path d="M422 203v-81q0-22 22-22h143" stroke="#6da2e5" stroke-width="1.5" stroke-dasharray="5 6"/><path d="M676 120v51q0 24 24 24h47v104" stroke="#a183e4" stroke-width="1.5" stroke-dasharray="5 6"/><path d="M478 417h80q32 0 32-32v-80h77" stroke="#5ab4bd" stroke-width="1.5" stroke-dasharray="5 6"/></g>
+<g filter="url(#shadow)"><rect x="512" y="62" width="266" height="74" rx="16" fill="#142135" stroke="#3b5076"/><path d="M540 102h18a9 9 0 0 0 0-18 12 12 0 0 0-23-1 10 10 0 0 0 5 19" fill="none" stroke="#adabef" stroke-width="2"/><text x="580" y="92" fill="#dbe5ff" font-family="Segoe UI,sans-serif" font-size="14" font-weight="600">Authenticated connectivity</text><text x="580" y="115" fill="#91a6c9" font-family="Consolas,monospace" font-size="11">HTTPS / WSS   ·   WebRTC</text></g>
+<g transform="translate(70 170) rotate(-3 260 150)" filter="url(#shadow)">
+ <rect x="9" y="5" width="528" height="322" rx="19" fill="url(#metal)" stroke="url(#rim)" stroke-width="2"/>
+ <rect x="20" y="16" width="506" height="298" rx="11" fill="#090f1b"/>
+ <circle cx="274" cy="12" r="2" fill="#9caac3"/>
+ <path d="M30 48H515" stroke="#2c3951"/><circle cx="37" cy="32" r="3" fill="#6ba4ef"/><circle cx="48" cy="32" r="3" fill="#8792c3"/><circle cx="59" cy="32" r="3" fill="#6b799c"/>
+ <text x="81" y="36" fill="#c4d3ec" font-family="Consolas,monospace" font-size="9.5" letter-spacing="1">STRICTRECORDS / WINDOWS CONTROLLER</text>
+ <rect x="35" y="64" width="45" height="229" rx="7" fill="#111c2d"/><rect x="46" y="79" width="22" height="22" rx="6" fill="#396bd2"/>
+ <path d="M51 90h12m-9-4v8m6-8v8M48 122h18m-18 25h18m-18 25h18m-18 25h18" stroke="#758fb7" stroke-width="2"/>
+ <text x="98" y="86" fill="#7b98bf" font-family="Consolas,monospace" font-size="8.5" letter-spacing="1">A DELIBERATE STUDY ENVIRONMENT</text>
+ <text x="98" y="113" fill="#e4edff" font-family="Segoe UI,sans-serif" font-size="23" font-weight="600">Make room for focused work.</text>
+ <rect x="98" y="132" width="247" height="105" rx="8" fill="url(#glass)" stroke="#30476b"/>
+ <g stroke="#5476a8" stroke-width="1.4" fill="none"><rect x="114" y="148" width="64" height="73" rx="5"/><path d="M188 151h55m-55 13h126m-126 14h109m-109 14h117m-117 14h74"/></g>
+ <rect x="357" y="132" width="147" height="105" rx="8" fill="#111f30" stroke="#30445e"/>
+ <text x="370" y="151" fill="#9aacca" font-family="Consolas,monospace" font-size="7.5">SESSION COMPONENTS</text>
+ <g fill="#9daecc" font-family="Segoe UI,sans-serif" font-size="9"><text x="382" y="174">Study &amp; practice</text><text x="382" y="195">Policy &amp; events</text><text x="382" y="216">Evidence &amp; review</text></g>
+ <g fill="#739ef3"><circle cx="372" cy="171" r="2"/><circle cx="372" cy="192" r="2"/><circle cx="372" cy="213" r="2"/></g>
+ <rect x="98" y="249" width="406" height="38" rx="6" fill="#162236" stroke="#2b3e5a"/>
+ <text x="112" y="272" fill="#9bafd0" font-family="Consolas,monospace" font-size="8.5">Routine  /  Session  /  Evidence  /  Decisions</text>
+ <path d="m9 327-32 17h594l-34-17Z" fill="url(#metal)" stroke="#52617b"/>
+ <path d="M-23 344q5 9 25 9h548q20 0 21-9" fill="#27364b"/>
+ <path d="M211 328h125l-5 7H216Z" fill="#8993a6"/>
+</g>
+<g transform="translate(565 331) rotate(6 130 92)" filter="url(#shadow)">
+ <rect width="266" height="182" rx="18" fill="url(#metal)" stroke="#6c659c" stroke-width="2"/><rect x="11" y="11" width="244" height="160" rx="10" fill="#111323"/>
+ <text x="25" y="34" fill="#bcaddd" font-family="Consolas,monospace" font-size="8.5">IOS / INDEPENDENT VISUAL SOURCES</text>
+ <g fill="#1c2340" stroke="#484467"><rect x="25" y="49" width="102" height="85" rx="6"/><rect x="138" y="49" width="102" height="85" rx="6"/></g>
+ <g fill="none" stroke="#9a92c9" stroke-width="1.5"><path d="M61 74h20l4 6h7v24H50V80h7Z"/><circle cx="71" cy="92" r="7"/><rect x="163" y="74" width="48" height="31" rx="4"/><path d="M187 105v7m-12 0h24"/></g>
+ <text x="48" y="121" fill="#b2abd1" font-family="Segoe UI,sans-serif" font-size="8">Camera track</text><text x="160" y="121" fill="#b2abd1" font-family="Segoe UI,sans-serif" font-size="8">Screen track</text>
+ <path d="M27 150h208" stroke="#3b3553"/><circle cx="132" cy="175" r="2" fill="#9b8cb2"/>
+</g>
+<g transform="translate(665 180) rotate(9 54 92)" filter="url(#shadow)">
+ <rect width="115" height="204" rx="21" fill="url(#metal)" stroke="#7c9b99" stroke-width="1.7"/><rect x="7" y="7" width="101" height="190" rx="16" fill="#0b1920"/><rect x="40" y="13" width="36" height="4" rx="2" fill="#465e63"/>
+ <path d="m57 39 17 6v15c0 13-17 24-17 24S40 73 40 60V45Z" fill="#153d36" stroke="#67c4aa"/>
+ <path d="m49 58 6 6 11-13" fill="none" stroke="#8de5c2" stroke-width="2"/>
+ <text x="19" y="107" fill="#d0e8df" font-family="Segoe UI,sans-serif" font-size="10" font-weight="600">Daily accountability</text>
+ <g fill="#152b30" stroke="#2d494e"><rect x="18" y="119" width="80" height="22" rx="5"/><rect x="18" y="148" width="80" height="22" rx="5"/></g>
+ <text x="26" y="133" fill="#a3c0b9" font-family="Segoe UI,sans-serif" font-size="7">Activity &amp; check-ins</text><text x="26" y="162" fill="#a3c0b9" font-family="Segoe UI,sans-serif" font-size="7">Evidence &amp; receipts</text>
+ <path d="M41 186h33" stroke="#6d9393" stroke-width="2" stroke-linecap="round"/>
+</g>
+<g filter="url(#shadow)"><rect x="235" y="542" width="387" height="44" rx="9" fill="#111d2f" stroke="#2e4569"/><circle cx="256" cy="564" r="4" fill="#88addd"/><text x="272" y="568" fill="#b0c1db" font-family="Consolas,monospace" font-size="9.5">Devices have roles. Evidence informs decisions.</text></g>
+<circle cx="422" cy="139" r="3" fill="#8fbaff"/><circle cx="746" cy="217" r="3" fill="#b89cea"/><circle cx="591" cy="368" r="3" fill="#87ccbc"/>
+</svg>

@@ -2,6 +2,13 @@
 
 **Plan your day. Protect your focus. Build consistency.**
 
+**[Explore the live StrictRecords product website](https://glokadhi.github.io/Strict-Routines-An-App-for-Productivity-and-Time/)**
+
+The website covers the platform architecture, device responsibilities, media and
+reward policies, reliability, privacy safeguards, documentation, and maintained
+development roadmap. Source walkthroughs are explicitly distinguished from live
+product demonstrations.
+
 StrictRoutines is a productivity and time-management project for Android, Windows,
 and supported browser extensions. Earlier source names use **StrictRecords**;
 they belong to the same application and remain in place for compatibility.
@@ -86,9 +93,10 @@ depending on those private fixtures require an appropriate local test dataset.
 
 ## GitHub Pages
 
-The GitHub Pages site publishes this project overview from the **same README**,
-using `_config.yml` and the `main` branch. No second project folder or copied
-frontend is required.
+The GitHub Pages product showcase is built from `index.html` and `assets/site/`
+by `.github/workflows/pages.yml` on pushes to `main`. It uses the same repository;
+no second application project or copied frontend is required. Build and deployment
+instructions are in [the website guide](docs/WEBSITE.md).
 
 GitHub Pages serves the public documentation. The Python backend, Windows EXE,
 Android APK, private device pairing, and live evidence processing run in their

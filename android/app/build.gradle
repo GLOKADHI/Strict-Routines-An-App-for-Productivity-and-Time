@@ -1,0 +1,93 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+buildDir = file(project.findProperty("STRICTRECORDS_ANDROID_BUILD_DIR") ?: "C:/Users/lokad/.strictrecords_build/app")
+
+def releaseStoreFile = project.findProperty("STRICTRECORDS_RELEASE_STORE_FILE") ?: System.getenv("STRICTRECORDS_RELEASE_STORE_FILE")
+def releaseStorePassword = project.findProperty("STRICTRECORDS_RELEASE_STORE_PASSWORD") ?: System.getenv("STRICTRECORDS_RELEASE_STORE_PASSWORD")
+def releaseKeyAlias = project.findProperty("STRICTRECORDS_RELEASE_KEY_ALIAS") ?: System.getenv("STRICTRECORDS_RELEASE_KEY_ALIAS")
+def releaseKeyPassword = project.findProperty("STRICTRECORDS_RELEASE_KEY_PASSWORD") ?: System.getenv("STRICTRECORDS_RELEASE_KEY_PASSWORD")
+def hasReleaseSigning = [releaseStoreFile, releaseStorePassword, releaseKeyAlias, releaseKeyPassword].every { it != null && !it.toString().isBlank() }
+
+android {
+    namespace 'com.strictrecords.app'
+    compileSdk 34
+    buildToolsVersion "35.0.0"
+
+    defaultConfig {
+        applicationId "com.strictrecords.app"
+        minSdk 24
+        targetSdk 34
+        versionCode 87
+        versionName "1.18.18"
+        testInstrumentationRunner "com.strictrecords.app.CameraReplayInstrumentation"
+    }
+
+    signingConfigs {
+        debug {
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+        release {
+            if (hasReleaseSigning) {
+                storeFile file(releaseStoreFile)
+                storePassword releaseStorePassword
+                keyAlias releaseKeyAlias
+                keyPassword releaseKeyPassword
+                v1SigningEnabled true
+                v2SigningEnabled true
+            }
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
+        release {
+            minifyEnabled false
+            if (hasReleaseSigning) {
+                signingConfig signingConfigs.release
+            }
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    kotlinOptions {
+        jvmTarget = '11'
+    }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+    sourceSets.test.resources.srcDir('../../shared')
+}
+
+gradle.taskGraph.whenReady { graph ->
+    def releaseRequested = graph.allTasks.any { it.name in ["assembleRelease", "bundleRelease"] }
+    if (releaseRequested && !hasReleaseSigning) {
+        throw new GradleException(
+            "Release builds require STRICTRECORDS_RELEASE_STORE_FILE, " +
+            "STRICTRECORDS_RELEASE_STORE_PASSWORD, STRICTRECORDS_RELEASE_KEY_ALIAS, and " +
+            "STRICTRECORDS_RELEASE_KEY_PASSWORD. Debug signing is not a production release identity."
+        )
+    }
+}
+
+dependencies {
+
+    implementation 'com.google.mlkit:face-detection:16.1.7'
+    implementation 'com.google.mlkit:text-recognition:16.0.1'
+    implementation 'com.google.mlkit:image-labeling:17.0.9'
+    implementation 'com.google.mlkit:object-detection:17.0.2'
+    implementation 'androidx.exifinterface:exifinterface:1.3.7'
+    implementation 'com.google.zxing:core:3.5.3'
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.json:json:20180813'
+}

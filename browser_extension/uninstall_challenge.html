@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StrictRoutines — Uninstall Coding Challenge</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #0d1522;
+      color: #f1f5f9;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background: #101927;
+      border-bottom: 1px solid #1f2d42;
+      padding: 14px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand img {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+    }
+    .brand-title h1 {
+      font-size: 17px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .brand-title p {
+      font-size: 12px;
+      color: #94a3b8;
+    }
+    .timer-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #172335;
+      padding: 8px 16px;
+      border-radius: 30px;
+      border: 1px solid #2b3b52;
+    }
+    .timer-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: #94a3b8;
+      letter-spacing: 0.5px;
+    }
+    .timer-val {
+      font-size: 18px;
+      font-weight: 800;
+      color: #38bdf8;
+      font-variant-numeric: tabular-nums;
+      min-width: 54px;
+    }
+    .timer-val.warning {
+      color: #f87171;
+      animation: pulse 1s infinite alternate;
+    }
+    @keyframes pulse {
+      from { opacity: 1; }
+      to { opacity: 0.6; }
+    }
+
+    main {
+      flex: 1;
+      max-width: 1100px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .disclosure-banner {
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid #334155;
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 12.5px;
+      line-height: 1.5;
+      color: #94a3b8;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .disclosure-banner strong {
+      color: #e2e8f0;
+    }
+
+    .card {
+      background: #141f30;
+      border: 1px solid #223249;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+    }
+
+    .card-title-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .badge.algo { background: rgba(56, 189, 248, 0.15); color: #38bdf8; }
+    .badge.sql { background: rgba(168, 85, 247, 0.15); color: #c084fc; }
+    .badge.debug { background: rgba(251, 146, 60, 0.15); color: #fb923c; }
+
+    .problem-desc {
+      font-size: 14px;
+      line-height: 1.6;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      margin-bottom: 16px;
+    }
+
+    .editor-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+    }
+    textarea#codeEditor {
+      width: 100%;
+      height: 280px;
+      background: #090e17;
+      border: 1px solid #1e2e42;
+      border-radius: 8px;
+      padding: 14px;
+      color: #f8fafc;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 13.5px;
+      line-height: 1.5;
+      resize: vertical;
+      outline: none;
+      tab-size: 4;
+    }
+    textarea#codeEditor:focus {
+      border-color: #38bdf8;
+    }
+
+    .action-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+    .btn-group {
+      display: flex;
+      gap: 10px;
+    }
+    button {
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 13px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.15s ease;
+    }
+    button.primary {
+      background: #22d69b;
+      color: #042f21;
+    }
+    button.primary:hover {
+      background: #34e2a8;
+    }
+    button.secondary {
+      background: #1e293b;
+      color: #e2e8f0;
+      border: 1px solid #334155;
+    }
+    button.secondary:hover {
+      background: #334155;
+    }
+    button.danger-outline {
+      background: transparent;
+      color: #fca5a5;
+      border: 1px solid rgba(239, 68, 68, 0.4);
+    }
+    button.danger-outline:hover {
+      background: rgba(239, 68, 68, 0.1);
+    }
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Interruption Overlay */
+    #interruptedOverlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(8, 13, 22, 0.92);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 24px;
+    }
+    .overlay-box {
+      background: #141f30;
+      border: 2px solid #ef4444;
+      border-radius: 16px;
+      padding: 32px 28px;
+      max-width: 520px;
+      width: 100%;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    }
+    .overlay-box h2 {
+      font-size: 20px;
+      color: #ef4444;
+      margin-bottom: 10px;
+    }
+    .overlay-box p {
+      font-size: 13.5px;
+      color: #cbd5e1;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    /* Results Card */
+    #resultsBox {
+      display: none;
+      margin-top: 16px;
+      padding: 18px;
+      border-radius: 10px;
+      border: 1px solid #334155;
+      background: #090e17;
+    }
+    #resultsBox.success {
+      border-color: #22d69b;
+      background: rgba(34, 214, 155, 0.05);
+    }
+    #resultsBox.fail {
+      border-color: #ef4444;
+      background: rgba(239, 68, 68, 0.05);
+    }
+    .score-badge {
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+    .score-badge.pass { color: #22d69b; }
+    .score-badge.fail { color: #ef4444; }
+
+    /* Release Box */
+    #releaseBox {
+      display: none;
+      margin-top: 16px;
+      padding: 18px;
+      border-radius: 10px;
+      background: rgba(34, 214, 155, 0.1);
+      border: 1px solid #22d69b;
+    }
+
+    footer {
+      text-align: center;
+      padding: 16px;
+      font-size: 12px;
+      color: #64748b;
+    }
+  </style>
+<link rel="stylesheet" href="ui.css"></head>
+<body>
+  <header>
+    <div class="brand">
+      <img src="strictbot.png" alt="StrictBot">
+      <div class="brand-title">
+        <h1>StrictRoutines Self-Discipline Challenge</h1>
+        <p>10-Minute Fullscreen Uninstall Authorization</p>
+      </div>
+    </div>
+    <div class="timer-container">
+      <span class="timer-label">Time Remaining</span>
+      <span id="timerDisplay" class="timer-val">10:00</span>
+    </div>
+  </header>
+
+  <main>
+    <div class="disclosure-banner">
+      <span>🛡️</span>
+      <div>
+        <strong>Transparent Authorization Policy:</strong>
+        To release the Windows Administrator Management policy and remove the browser companion, you must score at least <strong>95/100</strong> on this randomized coding or database problem within 10 minutes.
+        <br><em>Extensions cannot lock your OS or block Alt+Tab/Esc; if you leave fullscreen or navigate away, the attempt is interrupted and its deadline keeps counting.</em>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title-bar">
+        <h2 id="qTitle" style="font-size:18px; color:#ffffff;">Loading Challenge…</h2>
+        <span id="qBadge" class="badge algo">ALGORITHM</span>
+      </div>
+
+      <div id="qDesc" class="problem-desc">Fetching problem specification from companion…</div>
+
+      <div class="editor-label">
+        <span>Solution Editor (<span id="editorLang">Python 3</span>)</span>
+        <button id="btnCopyPrompt" class="secondary" style="padding:4px 10px; font-size:11px;" type="button">
+          📋 Copy question & your code
+        </button>
+      </div>
+
+      <textarea id="codeEditor" spellcheck="false" placeholder="# Write your solution here..."></textarea>
+
+      <div class="action-bar">
+        <div class="btn-group">
+          <button id="btnFullscreen" class="secondary" type="button">
+            <span>⛶</span> Toggle Fullscreen
+          </button>
+          <button id="btnSubmit" class="primary" type="button">
+            <span>⚡</span> Submit for Local Grading
+          </button>
+        </div>
+
+        <button id="btnExit" class="danger-outline" type="button">
+          <span>✕</span> Exit Challenge
+        </button>
+      </div>
+
+      <!-- Grading Results Box -->
+      <div id="resultsBox">
+        <div id="scoreBadge" class="score-badge pass">-- / 100</div>
+        <div id="resultsMsg" style="font-size:13px; color:#cbd5e1; margin-bottom:8px;"></div>
+        <div id="resultsDetails" style="font-size:12px; color:#94a3b8; font-family:monospace; white-space:pre-wrap;"></div>
+      </div>
+
+      <!-- Policy Release Confirmation Box -->
+      <div id="releaseBox">
+        <h3 style="color:#22d69b; font-size:16px; margin-bottom:6px;">✅ Challenge Passed with Qualifying Score!</h3>
+        <p style="font-size:13px; color:#cbd5e1; margin-bottom:12px;">
+          One-time authorization token generated. Click below to release the Windows Chromium management policies (URLBlocklist and toolbar pin), then proceed to normal extension removal.
+        </p>
+        <button id="btnConfirmRelease" class="primary" type="button">
+          <span>🔓</span> Confirm & Release Management Policies
+        </button>
+        <div id="releaseStatus" style="font-size:12.5px; margin-top:8px; display:none;"></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Focus Interruption Modal Overlay -->
+  <div id="interruptedOverlay">
+    <div class="overlay-box">
+      <h2>⚠️ CHALLENGE INTERRUPTED</h2>
+      <p>
+        You navigated away from the challenge window or exited fullscreen mode.
+        <br><br>
+        The 10-minute challenge deadline continues from its original timestamp and has <strong>not</strong> been reset.
+      </p>
+      <button id="btnResume" class="primary" style="margin: 0 auto;" type="button">
+        <span>▶</span> Resume Challenge in Fullscreen
+      </button>
+    </div>
+  </div>
+
+  <footer>
+    StrictRoutines Local Grader — Evaluated deterministically with zero external cookies or stored tokens.
+  </footer>
+
+  <script src="uninstall_challenge.js"></script>
+</body>
+</html>

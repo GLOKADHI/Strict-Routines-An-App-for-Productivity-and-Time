@@ -1,0 +1,26 @@
+const fs=require('fs'),vm=require('vm'),assert=require('assert/strict');
+const source=fs.readFileSync(process.argv[2],'utf8');new vm.Script(source);
+const ids=['gpayTxListContainer','gpayDateFilter','gpayConfirmedBalance','gpayVerificationLabel','gpaySyncStatusPill','gpayBalanceSubtext','gpayTotalGained','gpayTotalLost','gpayTotalCount'];
+const nodes=new Map(ids.map(id=>[id,{textContent:'',value:id==='gpayDateFilter'?'today':'',style:{}}]));
+let reply,fail=false,url,options;
+const sandbox={document:{getElementById:id=>nodes.get(id)},console:{error:()=>{}},renderGpayTransactionsList:()=>{},fetch:async(u,o)=>{url=u;options=o;if(fail)throw Error('offline');return {ok:true,json:async()=>reply}}};
+vm.createContext(sandbox);
+const start=source.indexOf('let gpayTransactionsList ='),end=source.indexOf('function filterGpayCategory(',start);
+assert(start>=0&&end>start);vm.runInContext(source.slice(start,end),sandbox);
+let checks=0;const equal=(a,b)=>{assert.equal(a,b);checks++},read=expr=>vm.runInContext(expr,sandbox);
+const load=()=>read('loadTransactionsHistory()');
+const valid=(amount=4)=>({success:true,balance_verified:true,ledger_checkpoint:'a'.repeat(64),ledger_revision:1,confirmed_balance:amount,sync_status:'SYNCED',date:'2026-10-17',last_sync_at:'2026-10-17T09:31:49+05:30',metrics:{points_gained:4,points_lost:0,total_entries:3},transactions:[]});
+(async()=>{
+ reply=valid();await load();equal(nodes.get('gpayConfirmedBalance').textContent,'4');equal(nodes.get('gpayTotalGained').textContent,'+4 pts');equal(nodes.get('gpayTotalCount').textContent,3);equal(nodes.get('gpayVerificationLabel').textContent,'✓ VERIFIED');equal(options.cache,'no-store');equal(url.includes('date=today'),true);
+ fail=true;await load();equal(nodes.get('gpayConfirmedBalance').textContent,'4');equal(nodes.get('gpaySyncStatusPill').textContent,'OFFLINE / REFRESH FAILED');equal(nodes.get('gpayVerificationLabel').textContent,'LAST LOADED');fail=false;
+ reply=valid(0);await load();equal(nodes.get('gpayConfirmedBalance').textContent,'0');equal(nodes.get('gpayVerificationLabel').textContent,'✓ VERIFIED');
+ reply={...valid(),sync_status:'STALE'};await load();equal(nodes.get('gpayConfirmedBalance').textContent,'4');equal(nodes.get('gpayVerificationLabel').textContent,'LAST CONFIRMED');equal(nodes.get('gpaySyncStatusPill').textContent,'STALE / OFFLINE');
+ reply={...valid(),sync_status:'RECONCILIATION REQUIRED',last_sync_error:'Checkpoint mismatch'};await load();equal(nodes.get('gpaySyncStatusPill').textContent,'SYNC NEEDS REVIEW');equal(nodes.get('gpayBalanceSubtext').textContent.includes('Checkpoint mismatch'),true);
+ reply={success:true,transactions:[],confirmed_balance:0};await load();equal(nodes.get('gpayConfirmedBalance').textContent,'—');equal(nodes.get('gpayVerificationLabel').textContent,'AWAITING LEDGER');equal(nodes.get('gpayTotalGained').textContent,'—');
+ reply={...valid(),ledger_checkpoint:''};await load();equal(nodes.get('gpayVerificationLabel').textContent,'AWAITING LEDGER');
+ let release;const delayed=new Promise(resolve=>{release=resolve});let count=0;
+ sandbox.fetch=async()=>{if(++count===1)return delayed;return {ok:true,json:async()=>valid(8)}};
+ const first=load();await load();release({ok:true,json:async()=>valid(4)});await first;
+ equal(nodes.get('gpayConfirmedBalance').textContent,'8');
+ console.log(`Points history UI: ${checks} checks passed.`);
+})().catch(error=>{console.error(error);process.exitCode=1;});

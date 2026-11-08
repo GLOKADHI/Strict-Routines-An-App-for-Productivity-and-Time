@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "StrictRoutines shared client state, version 1",
+  "description": "A projection of existing account records. This response grants no points or native Android capabilities.",
+  "type": "object",
+  "required": ["success", "schema_version", "account_id", "date", "timezone", "ledger", "ledger_state", "activities", "college", "gym", "gym_mode", "entry_confirmed", "summary", "capabilities"],
+  "properties": {
+    "success": {"const": true},
+    "schema_version": {"const": 1},
+    "account_id": {"type": "string", "minLength": 1},
+    "date": {"type": "string", "format": "date"},
+    "timezone": {"const": "Asia/Kolkata"},
+    "policy": {"type": "object"},
+    "schedule": {"type": ["object", "null"]},
+    "ledger": {
+      "type": ["object", "null"],
+      "description": "Null means no authoritative receipt is available. A cached local score must not substitute for it.",
+      "properties": {
+        "confirmed_balance": {"type": ["integer", "null"]},
+        "ledger_revision": {"type": ["integer", "null"]},
+        "revision": {"type": ["integer", "null"]},
+        "received_at": {"type": ["string", "null"]},
+        "fresh": {"type": ["boolean", "null"]},
+        "sync_status": {"type": ["string", "null"]}
+      }
+    },
+    "ledger_state": {"enum": ["ANDROID_AUTHORITY", "AWAITING_AUTHORITY"]},
+    "activities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["activity_id", "date", "type", "status", "window_start", "window_end", "validation_status"],
+        "properties": {
+          "activity_id": {"type": "string"},
+          "date": {"type": "string", "format": "date"},
+          "type": {"type": "string"},
+          "title": {"type": "string"},
+          "status": {"type": "string"},
+          "scheduled_time": {"type": "string"},
+          "window_start": {"type": "string"},
+          "window_end": {"type": "string"},
+          "validation_status": {"type": "string"},
+          "submission_id": {"type": ["string", "null"]},
+          "submitted_at": {"type": ["string", "null"]},
+          "schedule_version": {"type": "integer"},
+          "points": {"type": "integer", "description": "Planned reward, not proof of an awarded ledger event."}
+        }
+      }
+    },
+    "college": {"type": "object"},
+    "gym": {"type": "object"},
+    "gym_mode": {"type": "object"},
+    "entry_confirmed": {"type": "boolean", "description": "Current shared-client confirmation marker; not yet an Android confirmation receipt."},
+    "summary": {"type": "object", "required": ["activity_overview", "strictbot_summary"]},
+    "capabilities": {
+      "type": "object",
+      "required": ["android_accessibility", "native_android_camera", "native_android_blocking", "browser_website_enforcement"],
+      "properties": {
+        "android_accessibility": {"const": false},
+        "native_android_camera": {"const": false},
+        "native_android_blocking": {"const": false},
+        "browser_website_enforcement": {"const": true}
+      }
+    }
+  }
+}

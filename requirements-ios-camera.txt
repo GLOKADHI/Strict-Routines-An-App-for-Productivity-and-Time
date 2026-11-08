@@ -1,0 +1,3 @@
+# Optional camera gateway; installed separately from normal timer/APK runtime.
+aiohttp>=3.11,<4
+aiortc>=1.14,<2

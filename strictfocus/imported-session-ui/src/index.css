@@ -1,0 +1,88 @@
+@import "tailwindcss";
+@import "@fontsource/plus-jakarta-sans/400.css";
+@import "@fontsource/plus-jakarta-sans/500.css";
+@import "@fontsource/plus-jakarta-sans/600.css";
+@import "@fontsource/plus-jakarta-sans/700.css";
+@import "@fontsource/jetbrains-mono/400.css";
+@import "@fontsource/jetbrains-mono/500.css";
+@import "@fontsource/jetbrains-mono/600.css";
+@import "@fontsource/jetbrains-mono/700.css";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", "Cascadia Code", "Consolas", monospace;
+}
+
+:root {
+  --sr-bg-canvas: #080B11;
+  --sr-bg-panel: #0E131B;
+  --sr-bg-elevated: #141B26;
+  --sr-bg-hover: #1C2533;
+  --sr-border-subtle: #1E293B;
+  --sr-border-active: #22C55E;
+  --sr-accent-green: #22C55E;
+  --sr-accent-amber: #F59E0B;
+  --sr-accent-red: #EF4444;
+  --sr-accent-blue: #3B82F6;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--sr-bg-canvas);
+  color: #F1F5F9;
+  user-select: none;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Windows Desktop Subtle Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0B0F17;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #263244;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3B4C66;
+}
+
+html, body, #root {margin:0; width:100%; height:100%; overflow:hidden;}
+button {cursor:pointer;}
+button:disabled {cursor:default; opacity:.5;}
+button:focus-visible, input:focus-visible {outline:2px solid #22c55e;outline-offset:2px;}
+.browser-icon,.window-button,.camera-action {display:flex;align-items:center;justify-content:center;border-radius:5px;flex-shrink:0;color:#94a3b8;}
+.browser-icon {width:26px;height:26px;}
+.window-button {width:24px;height:24px;}
+.camera-action {width:20px;height:20px;}
+.browser-icon:hover,.window-button:hover,.camera-action:hover {background:#263244;color:#f1f5f9;}
+.desktop-end-dialog::backdrop {background:rgb(0 0 0 / .75);backdrop-filter:blur(4px);}
+@media(max-width:1100px){.desktop-layout-toolbar button {padding-inline:8px;}.desktop-layout-toolbar button span {font-size:9px;}}
+
+[data-embedded="true"][data-testid="monitoring-bar"] {overflow:visible;display:grid;grid-template-columns:minmax(0,1fr) 132px 176px 100px 28px;gap:9px;padding-block:7px;}
+[data-embedded="true"] [data-monitor="health"],[data-embedded="true"] [data-monitor="separator"] {display:none;}
+[data-embedded="true"] [data-monitor="indicators"] {display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:0;min-width:0;}
+[data-embedded="true"] [data-monitor="indicators"]>button {min-width:0;padding:5px 3px;}
+[data-embedded="true"] [data-monitor="devices"] {gap:14px;padding:6px 9px;justify-content:center;}
+[data-embedded="true"] [data-monitor="devices"]>button {min-width:38px;}
+[data-embedded="true"] [data-monitor="timer"] {min-width:0;padding:6px 10px;}
+[data-embedded="true"] [data-monitor="battery"] {min-width:0;padding:6px 8px;}
+@media(max-width:1366px){[data-embedded="true"][data-testid="monitoring-bar"]{grid-template-columns:minmax(0,1fr) 118px 168px 88px 26px;gap:5px;padding-inline:8px;}[data-embedded="true"] [data-monitor="indicators"]>button {padding-inline:1px;}[data-embedded="true"] [data-monitor="indicators"]>button div {font-size:10px;}}
+@media(max-width:1100px){[data-embedded="true"][data-testid="monitoring-bar"]{grid-template-columns:minmax(0,1fr) 116px 158px 80px 26px;}[data-embedded="true"] [data-monitor="indicators"] {grid-template-columns:repeat(4,minmax(0,1fr));}[data-embedded="true"] [data-monitor="indicators"]>button {padding-block:3px;}[data-embedded="true"] [data-monitor="indicators"]>button svg{margin-bottom:2px;width:13px;height:13px;}}
+@media(max-width:760px){[data-embedded="true"][data-testid="monitoring-bar"] {grid-template-columns:minmax(0,1fr) 90px 26px;}[data-embedded="true"] [data-monitor="indicators"] {grid-column:1 / -1;grid-row:2;grid-template-columns:repeat(7,minmax(0,1fr));}[data-embedded="true"] [data-monitor="devices"] {grid-row:1;}[data-embedded="true"] [data-monitor="timer"] {grid-column:1;grid-row:1;max-width:200px;}}
+dialog.ios-camera-link-dialog:modal{overscroll-behavior:contain;margin:auto}
+dialog.ios-camera-link-dialog::backdrop{background:#000b;overflow:hidden;overscroll-behavior:contain}

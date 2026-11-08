@@ -1,0 +1,9 @@
+{
+  "name": "com.strictrecords.native_host",
+  "description": "StrictRecords verified playback checkpoints and durable Night History",
+  "path": "C:\\Users\\lokad\\Music\\Practical\\StrictRecords\\windows\\StrictRecordsNativeBridge.exe",
+  "type": "stdio",
+  "allowed_origins": [
+    "chrome-extension://iincmekgilffpjmmmcgloliadppioajc/"
+  ]
+}

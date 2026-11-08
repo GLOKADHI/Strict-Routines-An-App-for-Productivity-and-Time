@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>StrictRoutines Browser Dashboard</title><link rel="stylesheet" href="ui.css"></head>
+<body class="popup"><header><img src="strictbot.png" alt=""><div class="header-copy"><p class="eyebrow">StrictRoutines</p><h1>Browser dashboard</h1></div><span id="extensionVersion" class="badge neutral"></span></header>
+<nav class="tabs" role="tablist" aria-label="Extension sections"><button id="tab-status" role="tab" aria-selected="true" aria-controls="view-status" data-view="status">Websites</button><button id="tab-planning" role="tab" aria-selected="false" aria-controls="view-planning" tabindex="-1" data-view="planning">Planning</button><button id="tab-scheduler" role="tab" aria-selected="false" aria-controls="view-scheduler" tabindex="-1" data-view="scheduler">Scheduler Settings</button><button id="tab-settings" role="tab" aria-selected="false" aria-controls="view-settings" tabindex="-1" data-view="settings">Settings</button><button id="tab-history" role="tab" aria-selected="false" aria-controls="view-history" tabindex="-1" data-view="history">Night History</button></nav>
+<main><section id="view-status" class="panel" role="tabpanel" aria-labelledby="tab-status">
+<div class="card-box"><div class="card-header"><span class="card-label">Desktop connection</span><span id="connBadge" class="badge neutral">Checking</span></div><p id="connDetail" class="card-detail">Connecting to the desktop…</p><p id="decisionHealth" class="status-line" role="status" aria-live="polite"></p><div class="balance"><strong id="confirmedScore">—</strong><span>confirmed points</span></div><p id="monitorStatus" class="note"></p></div>
+<div class="card-box" id="sppStatusCard">
+  <div class="card-header">
+    <h2>🛡️ Sensitive Page Protection</h2>
+    <span id="sppBadge" class="badge neutral">Standby</span>
+  </div>
+  <p id="sppStatusDetail" class="card-detail">Visual screen monitoring active · Automatically pauses for 5 minutes on banking, crypto, email &amp; payment checkout pages.</p>
+  <div id="sppActiveDetails" style="display:none;background:#0f172a;border:1px solid #1e293b;border-radius:8px;padding:10px;margin-top:6px;font-size:11.5px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+      <strong style="color:#38bdf8;" id="sppBannerText">SENSITIVE PAGE PROTECTION</strong>
+      <span id="sppCountdownBadge" class="badge warn" style="font-variant-numeric:tabular-nums;">05:00</span>
+    </div>
+    <div id="sppRiskAlertBox" style="display:none;margin-bottom:8px;padding:7px 9px;border-radius:6px;background:rgba(239,68,68,0.18);border:1px solid #ef4444;">
+      <div id="sppRiskHeadingText" style="font-weight:800;color:#fecaca;font-size:11.5px;margin-bottom:2px;">SENSITIVE PAGE + SCREEN RECORDING DETECTED</div>
+      <div id="sppRiskBodyText" style="color:#fee2e2;font-size:10.5px;line-height:1.35;"></div>
+    </div>
+    <div style="margin-bottom:4px;">
+      <strong style="color:#94a3b8;font-size:10.5px;text-transform:uppercase;">Sensitive pages:</strong>
+      <ul id="sppSensitivePagesList" style="list-style:none;padding:0;margin:2px 0 4px 0;color:#e2e8f0;font-size:11px;"></ul>
+    </div>
+    <div style="margin-bottom:6px;">
+      <strong style="color:#94a3b8;font-size:10.5px;text-transform:uppercase;">Capture activity:</strong>
+      <ul id="sppCaptureActivityList" style="list-style:none;padding:0;margin:2px 0 4px 0;color:#e2e8f0;font-size:11px;"></ul>
+    </div>
+    <div style="display:flex;justify-content:space-between;color:#cbd5e1;font-size:11px;padding:4px 6px;background:#0b1120;border-radius:4px;margin-bottom:6px;">
+      <span><strong>StrictRecords visual capture:</strong> <span id="sppVisualCaptureStateText" style="color:#38bdf8;font-weight:700;">PAUSED</span></span>
+      <span><strong>Cooldown:</strong> <span id="sppCooldownText">05:00</span></span>
+    </div>
+    <div style="color:#94a3b8;font-size:10.5px;margin-bottom:4px;"><strong>Category:</strong> <span id="sppCategoryText">—</span> · <strong>Origin:</strong> <span id="sppDomainText">—</span></div>
+    <div id="sppAlertMsgText" style="margin-top:4px;color:#e2e8f0;font-size:11px;line-height:1.35;"></div>
+    <div id="sppRecorderWarningBox" style="display:none;margin-top:6px;padding:6px 8px;border-radius:6px;background:rgba(244,63,94,0.15);border:1px solid rgba(244,63,94,0.4);color:#fda4af;font-size:11px;font-weight:600;"></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:8px;padding-top:6px;border-top:1px solid #1e293b;">
+      <span id="sppActionStatusText" style="font-size:10.5px;color:#cbd5e1;font-weight:600;">Close all sensitive pages and stop detected recording or screen-sharing activity.</span>
+      <button id="btnSppDismissNotice" type="button" class="outline" disabled style="padding:3px 8px;min-height:24px;font-size:10.5px;white-space:nowrap;">Dismiss</button>
+    </div>
+  </div>
+</div>
+<div class="card-box"><h2>Single YouTube Reward</h2><p id="youtubeRewardStatus" class="card-detail" role="status">Checking shared rewards…</p><label for="youtubeRewardSelect">Claimable reward · YouTube only</label><select id="youtubeRewardSelect"><option value="">Choose a confirmed reward</option></select><button id="youtubeRewardClaim" class="primary wide" type="button" disabled>Activate 20 minutes</button><p class="note">Approved hourly proof ≥6/8 · submitted at least 10 minutes before its deadline. Independent restrictions remain in force.</p></div>
+
+<div class="card-box">
+<div class="card-header"><h2>Educational YouTube Access</h2><span id="eduActiveBadge" class="badge neutral">No active video</span></div>
+<p id="eduActiveDetail" class="card-detail">Single-video educational access validated via designated Taufa AI conversation (891a3c1e-eed2-460e-bc05-6b8ac94bec5b).</p>
+
+<button id="btnRequestEduPopup" class="primary wide" type="button" style="margin-top:10px;margin-bottom:8px;padding:9px;font-size:12.5px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;background:#2563eb;color:#ffffff;border:none;border-radius:8px;box-shadow:0 2px 6px rgba(37,99,235,0.35);">🎓 REQUEST EDUCATIONAL VIDEO</button>
+
+<div id="statusEduCard" style="display:block;background:#0f172a;border:1px solid #1e293b;border-radius:8px;padding:10px;margin-top:6px;margin-bottom:10px;">
+  <label for="statusEduUrlInput" style="display:block;font-size:11.5px;font-weight:600;color:#93c5fd;margin-bottom:4px;">YouTube Video Link or ID:</label>
+  <div style="display:flex;gap:6px;">
+    <input type="text" id="statusEduUrlInput" placeholder="https://www.youtube.com/watch?v=... or Video ID" style="flex:1;min-height:34px;background:#1e293b;border:1px solid #334155;border-radius:6px;padding:4px 8px;color:#f8fafc;font-size:12px;" />
+    <button id="statusEduSubmitBtn" class="primary" type="button" style="white-space:nowrap;padding:4px 12px;min-height:34px;font-size:12px;font-weight:600;cursor:pointer;">Evaluate</button>
+  </div>
+  <p id="statusEduError" class="error-box" role="status" style="display:none;margin-top:6px;"></p>
+  <div id="statusEduReviewPanel" style="display:none;margin-top:8px;border-top:1px solid #304056;padding-top:8px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+      <span style="font-size:10.5px;font-weight:700;color:#38bdf8;letter-spacing:.04em;text-transform:uppercase;">Validation Progress</span>
+      <span id="statusEduStageBadge" class="badge neutral" style="font-size:9.5px;padding:2px 6px;">INITIALIZING</span>
+    </div>
+    <div id="statusEduMetaBox" style="background:#0b1120;border:1px solid #1e293b;border-radius:6px;padding:6px 8px;margin-bottom:6px;font-size:11px;display:flex;flex-direction:column;gap:2px;">
+      <div><strong style="color:#94a3b8;">Title:</strong> <span id="statusEduMetaTitle" style="color:#f8fafc;">Loading…</span></div>
+      <div><strong style="color:#94a3b8;">Duration:</strong> <span id="statusEduMetaDuration" style="color:#38bdf8;">Calculating…</span></div>
+    </div>
+    <div id="statusEduStagesList" style="display:flex;flex-direction:column;gap:3px;font-size:10.5px;margin-bottom:6px;">
+      <div id="statusStage1" class="edu-stage"><span class="stage-icon">⏳</span> <span>1. Capturing video metadata</span></div>
+      <div id="statusStage2" class="edu-stage"><span class="stage-icon">⏳</span> <span>2. Extracting content evidence</span></div>
+      <div id="statusStage3" class="edu-stage"><span class="stage-icon">⏳</span> <span>3. Sending request to Taufa AI (thread 891a3c1e...)</span></div>
+      <div id="statusStage4" class="edu-stage"><span class="stage-icon">⏳</span> <span>4. Evaluating educational relevance</span></div>
+      <div id="statusStage5" class="edu-stage"><span class="stage-icon">⏳</span> <span>5. Verifying video duration</span></div>
+      <div id="statusStage6" class="edu-stage"><span class="stage-icon">⏳</span> <span>6. Finalizing access decision</span></div>
+    </div>
+    <div id="statusEduResultBox" class="edu-result-box" style="display:none;padding:8px 10px;border-radius:6px;font-size:11px;line-height:1.4;"></div>
+    <button id="statusEduOpenBtn" class="primary wide" type="button" style="display:none;margin-top:8px;width:100%;">▶ Open &amp; Watch Approved Video</button>
+  </div>
+</div>
+
+<div id="eduHistorySection" style="margin-top:12px;">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;"><span class="card-label">Recent Taufa Evaluations</span><button id="btnRefreshEduHistory" class="outline" type="button" style="padding:2px 8px;font-size:11px;min-height:24px;">Refresh</button></div>
+  <div id="eduHistoryList" class="site-list" style="max-height:160px;overflow-y:auto;gap:6px;"><p class="note">Loading educational validation history…</p></div>
+</div>
+</div>
+
+<div class="card-header"><h2>Website access</h2><span class="note">Updated automatically</span></div><div id="siteList" class="site-list" aria-label="Configured websites"></div><p id="lastChecked" class="note"></p><p id="dashboardError" class="error-box" role="status"></p><div class="row"><button id="btnConnect" type="button">Refresh status</button><button id="btnFullClient" class="primary" type="button">Account &amp; full client</button><button id="btnDashboard" class="primary" type="button">Open dashboard</button></div>
+</section>
+<section id="view-planning" class="panel" role="tabpanel" aria-labelledby="tab-planning" hidden><div class="card-box"><h2>Daily planning</h2><p class="note">College and Gym are saved independently for the selected date.</p><label for="gymDate">Plan date</label><input id="gymDate" type="date"><label for="collegeChoice">College attendance</label><select id="collegeChoice"><option value="">Choose attendance</option><option value="YES">Yes — Attending college</option><option value="NO">No — Staying home</option></select><button id="collegeSave" class="outline wide" type="button">Save college plan</button><p id="collegeStatus" class="card-detail" role="status"></p><label for="gymChoice">Going to the gym?</label><select id="gymChoice"><option value="">Choose Gym attendance</option><option value="YES">Yes — Gym planned</option><option value="NO">No — No Gym</option></select><button id="gymSave" class="outline wide" type="button">Save Gym plan</button><p id="gymChoiceStatus" class="card-detail" role="status"></p></div><details class="advanced"><summary>Current Gym session</summary><div><p id="gymStatus" class="card-detail" role="status">Checking today's session…</p><p class="note">Start a booked session in desktop Controls. Gym mode temporarily permits Spotify. Samsung Music is controlled on Android.</p></div></details><p class="note">A choice awaiting desktop confirmation grants no new access. Reopen Planning after resolving a conflict in the desktop app.</p></section>
+<section id="view-scheduler" class="panel" role="tabpanel" aria-labelledby="tab-scheduler" hidden>
+<div class="card-box">
+  <div class="card-header">
+    <div>
+      <p class="eyebrow" style="margin-bottom:2px;">EMAIL-BASED SCHEDULER PREBOOKING</p>
+      <h2>Scheduler Settings</h2>
+    </div>
+    <span id="aiValidationBadge" class="badge neutral">EXTRACTED</span>
+  </div>
+  <p class="note" style="margin-bottom:10px;">Extract event details from an open email in Gmail or Outlook Web, validate with ChatGPT, and prebook protected time without screenshots.</p>
+
+  <button id="btnCaptureEmailDetails" class="primary wide" type="button" style="padding:10px;font-size:12.5px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;background:#2563eb;color:#ffffff;border:none;border-radius:8px;box-shadow:0 2px 6px rgba(37,99,235,0.35);cursor:pointer;margin-bottom:8px;">
+    📩 CAPTURE DETAILS FROM OPENED EMAIL
+  </button>
+
+  <div style="display:flex;gap:6px;margin-bottom:10px;">
+    <button id="btnAddAttachments" class="outline" type="button" style="flex:1;min-height:32px;padding:4px 8px;font-size:11.5px;">📎 Add Email Attachments (up to 5)</button>
+    <input type="file" id="emailAttachmentInput" multiple style="display:none;" />
+  </div>
+
+  <div id="emailSummaryCard" style="background:#0f172a;border:1px solid #1e293b;border-radius:8px;padding:10px;margin-bottom:12px;" hidden>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+      <span style="font-size:11px;font-weight:700;color:#38bdf8;text-transform:uppercase;">Captured Message</span>
+      <span id="emailClientBadge" class="badge neutral" style="font-size:9.5px;padding:2px 6px;">GMAIL</span>
+    </div>
+    <div style="font-size:11.5px;display:flex;flex-direction:column;gap:3px;">
+      <div><strong style="color:#94a3b8;">Subject:</strong> <span id="emailSummarySubject" style="color:#f8fafc;">—</span></div>
+      <div><strong style="color:#94a3b8;">From:</strong> <span id="emailSummarySender" style="color:#cbd5e1;">—</span></div>
+      <div><strong style="color:#94a3b8;">Date:</strong> <span id="emailSummaryDate" style="color:#93c5fd;">—</span></div>
+      <div><strong style="color:#94a3b8;">Files:</strong> <span id="emailSummaryAttCount" style="color:#cbd5e1;">None</span></div>
+      <div style="margin-top:4px;color:#94a3b8;font-size:11px;background:#0b1120;padding:6px;border-radius:4px;border:1px solid #1e293b;max-height:60px;overflow-y:auto;" id="emailSummaryBodyPreview">No email captured yet.</div>
+    </div>
+  </div>
+
+  <label style="margin-top:4px;margin-bottom:6px;font-weight:600;">Select Booking Category</label>
+  <div class="category-pills" style="display:flex;gap:6px;margin-bottom:12px;">
+    <button id="catBtnExam" class="cat-btn active" type="button" data-cat="EXAM_PREBOOK">📝 Exam Prebook</button>
+    <button id="catBtnMovie" class="cat-btn" type="button" data-cat="MOVIE_PREBOOK">🎬 Movie Prebook</button>
+    <button id="catBtnTravel" class="cat-btn" type="button" data-cat="TRAVEL_PREBOOK">✈️ Travel Prebook</button>
+  </div>
+
+  <div id="formExam">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
+      <div>
+        <label for="examInstitution">Institution / Company</label>
+        <input type="text" id="examInstitution" placeholder="e.g. SRM University or HCLTech" />
+      </div>
+      <div>
+        <label for="examName">Exam / Assessment Name</label>
+        <input type="text" id="examName" placeholder="e.g. End Semester Exam" />
+      </div>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;margin-bottom:4px;">
+      <span class="card-label">Batch Tests (1 to 4)</span>
+      <span class="note">Independent buffers &amp; times</span>
+    </div>
+    <div id="examTestsContainer"></div>
+    <button id="btnAddExamTest" class="outline wide" type="button" style="margin-top:4px;margin-bottom:10px;min-height:34px;font-size:12px;">+ Add Another Test (up to 4)</button>
+
+    <div class="card-box" style="padding:10px;margin-top:8px;margin-bottom:10px;background:#0b1120;">
+      <label style="display:flex;align-items:center;gap:6px;margin-top:0;cursor:pointer;">
+        <input type="checkbox" id="chkPeriodicExam" />
+        <span style="font-weight:600;color:#93c5fd;">Periodic Exam Schedule (Recurring)</span>
+      </label>
+      <div id="periodicOptionsPanel" hidden style="margin-top:8px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;">
+        <div>
+          <label style="font-size:11px;">Recurrence</label>
+          <select id="periodicRecurrence" style="min-height:32px;padding:4px 6px;font-size:11.5px;">
+            <option value="DAILY">Daily</option>
+            <option value="WEEKLY">Weekly</option>
+            <option value="CUSTOM">Custom</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:11px;">Start Date</label>
+          <input type="date" id="periodicStartDate" style="min-height:32px;padding:4px 6px;font-size:11.5px;" />
+        </div>
+        <div>
+          <label style="font-size:11px;">End Date</label>
+          <input type="date" id="periodicEndDate" style="min-height:32px;padding:4px 6px;font-size:11.5px;" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="formMovie" hidden>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+      <div>
+        <label for="movieName">Movie / Event Name</label>
+        <input type="text" id="movieName" placeholder="e.g. Interstellar (Re-release)" />
+      </div>
+      <div>
+        <label for="movieVenue">Cinema / Venue</label>
+        <input type="text" id="movieVenue" placeholder="e.g. PVR Forum Mall" />
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+      <div>
+        <label for="movieDate">Date</label>
+        <input type="date" id="movieDate" />
+      </div>
+      <div>
+        <label for="movieStart">Start (Time In)</label>
+        <input type="time" id="movieStart" value="18:30" />
+      </div>
+      <div>
+        <label for="movieEnd">End (Time Out)</label>
+        <input type="time" id="movieEnd" value="21:30" />
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+      <div>
+        <label for="moviePrep">Prep Buffer (mins)</label>
+        <input type="number" id="moviePrep" value="30" />
+      </div>
+      <div>
+        <label for="movieComp">Completion Buffer (mins)</label>
+        <input type="number" id="movieComp" value="30" />
+      </div>
+    </div>
+  </div>
+
+  <div id="formTravel" hidden>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+      <div>
+        <label for="travelType">Travel Type</label>
+        <select id="travelType">
+          <option value="FLIGHT">Flight</option>
+          <option value="TRAIN">Train</option>
+          <option value="BUS">Bus</option>
+          <option value="CAB">Cab</option>
+          <option value="PERSONAL">Personal Vehicle</option>
+        </select>
+      </div>
+      <div>
+        <label for="travelPurpose">Purpose</label>
+        <input type="text" id="travelPurpose" placeholder="e.g. University Convocation" />
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+      <div>
+        <label for="travelOrigin">Origin</label>
+        <input type="text" id="travelOrigin" placeholder="e.g. Chennai" />
+      </div>
+      <div>
+        <label for="travelDestination">Destination</label>
+        <input type="text" id="travelDestination" placeholder="e.g. Bengaluru" />
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+      <div>
+        <label for="travelDepDate">Departure Date</label>
+        <input type="date" id="travelDepDate" />
+      </div>
+      <div>
+        <label for="travelDepTime">Departure Time</label>
+        <input type="time" id="travelDepTime" value="08:00" />
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+      <div>
+        <label for="travelRetDate">Return Date (Optional)</label>
+        <input type="date" id="travelRetDate" />
+      </div>
+      <div>
+        <label for="travelRetTime">Return Time</label>
+        <input type="time" id="travelRetTime" value="22:00" />
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+      <div>
+        <label for="travelDepBuffer">Departure Buffer (mins)</label>
+        <input type="number" id="travelDepBuffer" value="90" />
+      </div>
+      <div>
+        <label for="travelArrBuffer">Arrival Buffer (mins)</label>
+        <input type="number" id="travelArrBuffer" value="60" />
+      </div>
+    </div>
+  </div>
+
+  <div style="background:#0f172a;border:1px solid #1e293b;border-radius:8px;padding:10px;margin-top:10px;">
+    <div style="font-size:11px;font-weight:700;color:#38bdf8;text-transform:uppercase;margin-bottom:4px;">ChatGPT Validation Details</div>
+    <pre id="aiExplanationBox" style="font-family:inherit;font-size:11.5px;color:#cbd5e1;white-space:pre-wrap;margin:0;max-height:90px;overflow-y:auto;">Ready to capture or validate email schedule.</pre>
+  </div>
+
+  <div class="card-box" style="padding:10px;margin-top:10px;background:#0b1120;">
+    <div style="font-size:11px;font-weight:700;color:#38bdf8;text-transform:uppercase;margin-bottom:6px;">Review Proposed Schedule</div>
+    <div id="reviewSummaryBox" style="font-size:11.5px;color:#f1f5f9;line-height:1.4;">Loading summary…</div>
+    <div id="conflictReportBox" style="margin-top:6px;font-size:11.5px;">
+      <span id="conflictStatusText" style="color:var(--muted);white-space:pre-wrap;">Schedule conflict check pending.</span>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;">
+    <button id="btnCheckConflicts" class="outline" type="button" style="flex:1;min-height:34px;font-size:12px;">Check Schedule Conflicts</button>
+    <button id="btnRevalidate" class="outline" type="button" style="flex:1;min-height:34px;font-size:12px;">Revalidate</button>
+  </div>
+
+  <div style="display:flex;gap:6px;margin-top:8px;">
+    <button id="btnConfirmPrebook" class="primary" type="button" style="flex:2;background:#059669;color:#ffffff;border:none;min-height:38px;font-weight:700;cursor:pointer;">✅ Confirm &amp; Prebook</button>
+    <button id="btnCancelPrebook" class="outline danger" type="button" style="flex:1;min-height:38px;font-size:12px;">Cancel</button>
+  </div>
+
+  <p id="schedulerStatusMsg" class="status-line" role="status" style="margin-top:8px;"></p>
+</div>
+
+<div class="card-box">
+  <div class="card-header">
+    <h2>Active Ecosystem Prebookings</h2>
+    <span class="note">Syncs with Windows &amp; Android</span>
+  </div>
+  <div id="confirmedPrebooksList" class="site-list" style="max-height:150px;overflow-y:auto;gap:6px;">
+    <p class="note">Loading prebooked events…</p>
+  </div>
+</div>
+</section>
+<section id="view-settings" class="panel" role="tabpanel" aria-labelledby="tab-settings" hidden>
+<div class="card-box" id="sppSettingsCard">
+  <div class="card-header">
+    <h2>🛡️ Sensitive Page Protection Domains</h2>
+    <span class="badge ok">5m Shield</span>
+  </div>
+  <p class="card-detail">Add custom banking, wallet, webmail, or payment domains to trigger the 5-minute visual screen monitoring privacy shield.</p>
+  <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;">
+    <input type="text" id="sppCustomDomainInput" placeholder="e.g. portal.mybank.com" style="flex:2;min-height:34px;background:#1e293b;border:1px solid #334155;border-radius:6px;padding:4px 8px;color:#f8fafc;font-size:12px;" />
+    <select id="sppCustomCategorySelect" style="flex:1;min-height:34px;background:#1e293b;border:1px solid #334155;border-radius:6px;padding:4px 6px;color:#f8fafc;font-size:11.5px;">
+      <option value="PAYMENT_CHECKOUT">Payment / Checkout</option>
+      <option value="BANKING_FINANCIAL">Banking / Financial</option>
+      <option value="CRYPTO_WALLET">Crypto / Wallet</option>
+      <option value="EMAIL_PERSONAL">Email / Personal</option>
+    </select>
+    <button id="btnSppAddDomain" class="primary" type="button" style="min-height:34px;padding:4px 10px;font-size:12px;">Add</button>
+  </div>
+  <div id="sppCustomDomainsList" class="site-list" style="margin-top:8px;max-height:110px;overflow-y:auto;gap:4px;"></div>
+  <p id="sppConfigMsg" class="note" role="status" style="margin-top:4px;"></p>
+</div>
+<div class="card-box" id="settingsEduCard">
+  <div class="card-header"><h2>🎓 Educational YouTube Access</h2><span id="settingsEduBadge" class="badge neutral">Taufa AI</span></div>
+  <p class="card-detail">Request educational access for any YouTube video. The content is evaluated in real time via designated Taufa AI conversation (891a3c1e-eed2-460e-bc05-6b8ac94bec5b).</p>
+
+  <button id="btnSettingsRequestEdu" class="primary wide" type="button" style="margin-top:8px;margin-bottom:8px;padding:9px;font-size:12.5px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;background:#2563eb;color:#ffffff;border:none;border-radius:8px;box-shadow:0 2px 6px rgba(37,99,235,0.35);">🎓 REQUEST EDUCATIONAL VIDEO</button>
+
+  <label for="settingsEduUrlInput" style="display:block;font-size:11.5px;font-weight:600;color:#93c5fd;margin-top:6px;margin-bottom:4px;">YouTube Video Link or ID</label>
+  <div style="display:flex;gap:8px;margin-bottom:8px;">
+    <input type="text" id="settingsEduUrlInput" placeholder="https://www.youtube.com/watch?v=... or Video ID" style="flex:1;min-height:36px;background:#1e293b;border:1px solid #334155;border-radius:8px;padding:6px 10px;color:#f8fafc;font-size:12.5px;" />
+    <button id="settingsEduSubmitBtn" class="primary" type="button" style="white-space:nowrap;padding:6px 14px;min-height:36px;font-size:12.5px;font-weight:600;cursor:pointer;">Evaluate</button>
+  </div>
+  <p id="settingsEduError" class="error-box" role="status" style="display:none;margin-top:4px;margin-bottom:8px;"></p>
+  <div id="settingsEduReviewPanel" style="display:none;margin-top:10px;border-top:1px solid #304056;padding-top:10px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+      <span style="font-size:11px;font-weight:700;color:#38bdf8;letter-spacing:.04em;text-transform:uppercase;">Validation Progress</span>
+      <span id="settingsEduStageBadge" class="badge neutral" style="font-size:10px;padding:2px 6px;">INITIALIZING</span>
+    </div>
+    <div id="settingsEduMetaBox" style="background:#0f172a;border:1px solid #1e293b;border-radius:8px;padding:8px 10px;margin-bottom:8px;font-size:11.5px;display:flex;flex-direction:column;gap:3px;">
+      <div><strong style="color:#94a3b8;">Title:</strong> <span id="settingsEduMetaTitle" style="color:#f8fafc;">Loading…</span></div>
+      <div><strong style="color:#94a3b8;">Duration:</strong> <span id="settingsEduMetaDuration" style="color:#38bdf8;">Calculating…</span></div>
+    </div>
+    <div id="settingsEduStagesList" style="display:flex;flex-direction:column;gap:4px;font-size:11px;margin-bottom:8px;">
+      <div id="settingsStage1" class="edu-stage"><span class="stage-icon">⏳</span> <span>1. Capturing video metadata</span></div>
+      <div id="settingsStage2" class="edu-stage"><span class="stage-icon">⏳</span> <span>2. Extracting content evidence</span></div>
+      <div id="settingsStage3" class="edu-stage"><span class="stage-icon">⏳</span> <span>3. Sending request to Taufa AI (thread 891a3c1e...)</span></div>
+      <div id="settingsStage4" class="edu-stage"><span class="stage-icon">⏳</span> <span>4. Evaluating educational relevance</span></div>
+      <div id="settingsStage5" class="edu-stage"><span class="stage-icon">⏳</span> <span>5. Verifying video duration</span></div>
+      <div id="settingsStage6" class="edu-stage"><span class="stage-icon">⏳</span> <span>6. Finalizing access decision</span></div>
+    </div>
+    <div id="settingsEduResultBox" class="edu-result-box" style="display:none;padding:10px 12px;border-radius:8px;font-size:12px;line-height:1.4;"></div>
+    <button id="settingsEduOpenBtn" class="primary wide" type="button" style="display:none;margin-top:8px;width:100%;">▶ Open &amp; Watch Approved Video</button>
+  </div>
+</div>
+
+<div class="card-box"><div class="card-header"><h2>Extension protection</h2><span id="mgmtBadge" class="badge neutral">Checking</span></div><p id="mgmtDetail" class="card-detail">Reading confirmed policy state…</p><p id="browserIdentity" class="note"></p></div><div class="settings-stack"><button id="btnConfig" class="outline" type="button">Protection settings &amp; recovery</button><button id="btnUnlockPrompt" class="outline" type="button" hidden>Administrator maintenance unlock</button><div id="pinBox" class="pin-input-box" hidden><label for="adminPin">Administrator PIN</label><input type="password" id="adminPin" maxlength="16" autocomplete="off"><div class="pin-actions"><button id="btnSubmitPin" class="primary" type="button">Unlock for 10 minutes</button><button id="btnCancelPin" type="button">Cancel</button></div><p id="pinMsg" class="error-box" role="status"></p></div></div><details class="advanced"><summary>Advanced management</summary><div><p class="note">Only verified browser policy can provide removal protection. A connection alone does not establish enforcement or independent monitoring.</p><button id="btnRequestUninstall" class="outline danger wide" type="button">Review removal authorization</button></div></details></section><section id="view-history" class="panel" role="tabpanel" aria-labelledby="tab-history" hidden><div><p class="eyebrow">CONTINUE WHERE YOU LEFT OFF</p><h2>Night Shutdown History</h2><p id="nightSchedule" class="note"></p></div><p id="nightStatus" class="status-line" role="status"></p><div id="nightHistoryList" class="site-list"></div><div class="row"><button id="nightRefresh">Refresh history</button><button id="nightClear" class="outline danger">Clear history…</button></div></section></main>
+<footer><span id="browserLabel">This browser profile</span><span>Rules managed by your desktop</span></footer><script src="extension_popup.js"></script><script src="youtube_rewards.js"></script><script src="gym_planning.js"></script><script src="college_planning.js"></script><script src="night_history.js"></script><script src="educational_history.js"></script><script src="scheduler_prebooking.js"></script></body></html>

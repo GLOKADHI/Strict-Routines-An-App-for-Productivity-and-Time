@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-extraction-rules>
+    <cloud-backup><exclude domain="sharedpref" path="strictrecords_google_auth.xml" /><exclude domain="sharedpref" path="demo_access_state.xml" /><exclude domain="sharedpref" path="strict_session_participant.xml" /></cloud-backup>
+    <device-transfer><exclude domain="sharedpref" path="strictrecords_google_auth.xml" /><exclude domain="sharedpref" path="demo_access_state.xml" /><exclude domain="sharedpref" path="strict_session_participant.xml" /></device-transfer>
+</data-extraction-rules>

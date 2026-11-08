@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "StrictRoutines Status Helper",
+  "version": "1.3.0",
+  "minimum_chrome_version": "120",
+  "description": "Visible, profile-bound status checks for the StrictRoutines extension; no browsing data collected.",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArxBPvnE/klKi3Vvm+sMXZy7va+T1mB2F5CCcxg9z/bcgphlolYn8TQPJLEabGTqFlAbfdkxoKR7rE6iu/+76mFNuPEac71io79YYKCouZ0KZVhgXCkdXeFRtZiIp7vho/7FW0yZSCj4oJeYFSUhkmBA9GwAbhuJDVft/ulMO/toO0HK79XMCHqtstdfQa0o+J3udvJhSNr4rcUUyRV4OqxV9a0K8WQzSW8/5l4knFQm0NPuPU1TJRBVrZvHP3J3zS8mpxmCynWW/fC3bO9HsnhBWvT0332eevCSFCJu+vTcKXkrck/wXSgsrya/JUYE6w5V4YuhhqNGetSc6TTsk/QIDAQAB",
+  "permissions": [
+    "management",
+    "storage",
+    "alarms"
+  ],
+  "host_permissions": [
+    "http://127.0.0.1:8765/*"
+  ],
+  "background": {
+    "service_worker": "service_worker.js"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  }
+}

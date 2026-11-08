@@ -1,0 +1,12 @@
+YOLOX Nano ONNX weights from Megvii-BaseDetection/YOLOX release 0.1.1rc0.
+Copyright (c) Megvii Inc. and its affiliates.
+The upstream model and deployment code are distributed under Apache License 2.0.
+The complete upstream license is included as YOLOX-LICENSE.txt.
+
+Source: https://github.com/Megvii-BaseDetection/YOLOX
+Asset: https://github.com/Megvii-BaseDetection/YOLOX/releases/download/0.1.1rc0/yolox_nano.onnx
+The model asset is unchanged. This isolated adapter independently implements
+bounded preprocessing, decoding, box clipping, and class-aware suppression.
+Inference uses the pinned release's RGB normalization rather than newer-release
+BGR preprocessing. Confidence represents object detection, never OCR correctness
+or verification that an attendance task has been completed.

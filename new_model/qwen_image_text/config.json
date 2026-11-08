@@ -1,0 +1,16 @@
+{
+  "model_id": "Qwen/Qwen3-VL-2B-Instruct",
+  "model_path": "models/Qwen3-VL-2B-Instruct",
+  "train_file": "data/train.jsonl",
+  "validation_file": "data/validation.jsonl",
+  "output": "checkpoints/image-text-lora",
+  "max_steps": 20,
+  "learning_rate": 0.0001,
+  "lora_rank": 8,
+  "lora_alpha": 16,
+  "image_pixels": 16384,
+  "max_sequence_length": 512,
+  "threads": 4,
+  "seed": 42,
+  "dtype": "bfloat16"
+}

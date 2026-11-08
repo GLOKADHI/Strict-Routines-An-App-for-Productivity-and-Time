@@ -1,0 +1,2 @@
+# Timezone database required on Windows for configured account timezones.
+tzdata>=2025.2

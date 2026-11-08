@@ -1,0 +1,12 @@
+{
+  "source": "https://huggingface.co/opencv/opencv_zoo/resolve/main/models/object_detection_yolox/object_detection_yolox_2022nov.onnx",
+  "license": "Apache-2.0",
+  "sha256": "c5c2d13e59ae883e6af3b45daea64af4833a4951c92d116ec270d9ddbe998063",
+  "supported_prohibited_classes": [
+    "cell phone"
+  ],
+  "unsupported_classes": [
+    "earbuds",
+    "AirPods"
+  ]
+}

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Connect to StrictRoutines</title>
+  <style>
+    * { box-sizing:border-box; }
+    body { margin:0; padding:24px; background:#080d14; color:#f4f7fb; font:15px "Segoe UI",Arial,sans-serif; }
+    main { width:min(100%,580px); margin:24px auto; padding:28px; border:1px solid #168bff; border-radius:18px; background:#0d1520; }
+    .brand { color:#43a9ff; font-weight:800; font-size:18px; }
+    h1 { font-size:26px; line-height:1.25; margin:18px 0 12px; }
+    p { color:#adb8c6; line-height:1.6; margin:0 0 20px; }
+    button { width:100%; min-height:56px; padding:12px; border:0; border-radius:11px; color:white; background:#138b3e; font:800 15px "Segoe UI",Arial,sans-serif; cursor:pointer; }
+    button:disabled { opacity:.7; cursor:wait; }
+    #status { margin-top:18px; line-height:1.5; }
+    .ok { color:#4ade80; } .error { color:#fca5a5; } .warning { color:#fbbf24; }
+    #connection-details { margin-top:12px; font-size:13px; line-height:1.5; color:#adb8c6; white-space:pre-line; overflow-wrap:anywhere; }
+    small { display:block; margin-top:20px; color:#8996a8; line-height:1.5; }
+    @media(max-width:480px) { body { padding:12px; } main { margin:10px auto; padding:20px; } }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="brand">StrictBot</div>
+    <h1>Connect to StrictRoutines</h1>
+    <p>Start StrictRoutines on this computer, then connect. Your native desktop app handles compatible browsers. No extensions or separate setup for each browser.</p>
+    <button id="connect" type="button">CONNECT TO STRICTRECORDS</button>
+    <div id="status" role="status" aria-live="polite">Ready to connect to the desktop app.</div>
+    <div id="connection-details"></div>
+    <small>Your confirmed points and unlock rules stay in StrictRoutines. This page does not award or deduct points.</small>
+  </main>
+  <script src="popup.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,6 @@
+{
+  "name": "StrictRecords — Strict Session",
+  "description": "Modular, production-integration-ready desktop frontend for StrictRecords Strict Session with 50:50 restricted split browser, external proctoring state providers, multi-device telemetry, and WebView2 host bridge.",
+  "requestFramePermissions": ["camera", "microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

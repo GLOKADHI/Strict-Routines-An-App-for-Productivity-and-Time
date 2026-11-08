@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">StrictRoutines</string>
+    <string name="device_admin_description">StrictRoutines anti-uninstall lock during active discipline hours. Does not wipe device, reset passwords, or monitor logins.</string>
+    <string name="accessibility_service_description">StrictRoutines uses Accessibility strictly to observe foreground package identities of selected target apps (YouTube, Instagram, Spotify, Samsung Music) for user-configured discipline routines. It cannot and does not read on-screen text, inspect window contents, access credentials, or monitor financial/banking applications.</string>
+</resources>
+

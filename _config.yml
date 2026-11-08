@@ -1,0 +1,45 @@
+title: "Strict Routines - An App for Productivity and Time"
+description: "Created to turn daily plans into consistent action through routines, focus sessions, evidence-based check-ins, transparent points, and timely reminders."
+url: "https://glokadhi.github.io"
+baseurl: "/Strict-Routines-An-App-for-Productivity-and-Time"
+theme: jekyll-theme-cayman
+show_downloads: false
+plugins:
+  - jekyll-readme-index
+  - jekyll-relative-links
+readme_index:
+  enabled: true
+  remove_originals: false
+  with_frontmatter: false
+relative_links:
+  enabled: true
+  collections: false
+github:
+  repository_url: "https://github.com/GLOKADHI/Strict-Routines-An-App-for-Productivity-and-Time"
+exclude:
+  - android
+  - ios
+  - assets
+  - browser_extension
+  - browser_extension_monitor
+  - cloud_points
+  - core
+  - data
+  - deploy
+  - docs
+  - launcher
+  - new_model
+  - scripts
+  - shared
+  - strictfocus
+  - taufa_extension
+  - tests
+  - tools
+  - windows
+  - "*.py"
+  - "*.spec"
+  - requirements-runtime.txt
+  - requirements-ios-camera.txt
+  - AUDIT_TEST_PLAN.md
+  - PRE_BETA_AUDIT_REPORT.md
+  - NATIVE_BROWSER_CONNECTION.md

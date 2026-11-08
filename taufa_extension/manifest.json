@@ -1,0 +1,48 @@
+{
+  "manifest_version": 3,
+  "name": "StrictRecords · Taufa AI Bridge",
+  "version": "1.0.0",
+  "description": "Captures and syncs Taufa AI (taufa.ai) session cookies to StrictRecords for real-time Hourly Attendance evidence validation and scoring.",
+  "permissions": [
+    "cookies",
+    "storage",
+    "activeTab",
+    "tabs",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://taufa.ai/*",
+    "https://*.taufa.ai/*",
+    "http://127.0.0.1:8765/*",
+    "http://127.0.0.1:8000/*",
+    "http://localhost:8765/*",
+    "http://localhost:8000/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "StrictRecords Taufa Bridge",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://taufa.ai/*",
+        "https://*.taufa.ai/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "48": "icon48.png",
+    "128": "icon128.png"
+  }
+}

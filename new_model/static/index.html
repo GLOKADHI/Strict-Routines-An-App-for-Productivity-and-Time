@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vision-Language V1</title>
+    <style>
+      :root { color-scheme: light; font-family: Inter, system-ui, sans-serif; }
+      body { margin: 0; background: #f4f6f8; color: #15202b; }
+      main { max-width: 900px; margin: 0 auto; padding: 48px 20px; }
+      .card { background: white; border: 1px solid #dfe5ea; border-radius: 16px; padding: 24px; box-shadow: 0 8px 30px #10203010; }
+      h1 { margin-top: 0; margin-bottom: 8px; }
+      p { color: #52606d; }
+      label { display: block; font-weight: 650; margin: 20px 0 8px; }
+      input[type=file], textarea { width: 100%; box-sizing: border-box; }
+      textarea { min-height: 96px; resize: vertical; padding: 12px; border: 1px solid #cbd5df; border-radius: 8px; font: inherit; }
+      input[type=file] { padding: 12px 0; }
+      button { margin-top: 20px; border: 0; border-radius: 8px; padding: 12px 18px; background: #1463d6; color: white; font-weight: 700; cursor: pointer; }
+      button:disabled { opacity: .55; cursor: wait; }
+      #status { min-height: 24px; margin-top: 16px; color: #52606d; }
+      pre { white-space: pre-wrap; word-break: break-word; background: #111827; color: #e5e7eb; padding: 18px; border-radius: 10px; overflow: auto; }
+      .hint { font-size: .92rem; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="card">
+        <h1>Vision-Language V1</h1>
+        <p>Upload an image and ask a question. The API returns structured JSON for description, objects, actions, text, and events.</p>
+        <form id="analyze-form">
+          <label for="image">Image</label>
+          <input id="image" name="image" type="file" accept="image/*" required />
+          <label for="question">Question</label>
+          <textarea id="question" name="question">Describe this image in detail.</textarea>
+          <button id="submit" type="submit">Analyze image</button>
+        </form>
+        <div id="status" class="hint"></div>
+        <pre id="result" hidden></pre>
+      </section>
+    </main>
+    <script>
+      const form = document.getElementById('analyze-form');
+      const submit = document.getElementById('submit');
+      const status = document.getElementById('status');
+      const result = document.getElementById('result');
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        submit.disabled = true;
+        status.textContent = 'Analyzing…';
+        result.hidden = true;
+        try {
+          const response = await fetch('/analyze', { method: 'POST', body: new FormData(form) });
+          const payload = await response.json();
+          if (!response.ok) throw new Error(payload.detail || 'Request failed.');
+          result.textContent = JSON.stringify(payload, null, 2);
+          result.hidden = false;
+          status.textContent = 'Done.';
+        } catch (error) {
+          status.textContent = error.message;
+        } finally {
+          submit.disabled = false;
+        }
+      });
+    </script>
+  </body>
+</html>
+

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- CameraReplayInstrumentation remains the Gradle default runner. -->
+    <instrumentation
+        android:name="com.strictrecords.app.TargetMonitoringInstrumentation"
+        android:targetPackage="com.strictrecords.app"
+        android:functionalTest="false"
+        android:handleProfiling="false"
+        android:label="Selected app monitoring device regression" />
+</manifest>

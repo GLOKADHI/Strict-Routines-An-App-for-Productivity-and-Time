@@ -1,0 +1,40 @@
+services:
+  database:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: strictroutines
+      POSTGRES_USER: strictroutines
+      POSTGRES_PASSWORD: ${POINTS_DB_PASSWORD:?Set a strong database password on the cloud host}
+    volumes:
+      - points_database:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U strictroutines"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+  api:
+    build:
+      context: ..
+      dockerfile: cloud_points/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      database:
+        condition: service_healthy
+    environment: &environment
+      STRICTROUTINES_POINTS_DATABASE_URL: postgresql://strictroutines:${POINTS_DB_PASSWORD}@database:5432/strictroutines
+      STRICTROUTINES_POINTS_SCHEDULER_SECRET: ${POINTS_SCHEDULER_SECRET:?Set a separate scheduler secret}
+    ports:
+      - "127.0.0.1:8080:8080"
+  coordinator:
+    build:
+      context: ..
+      dockerfile: cloud_points/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      database:
+        condition: service_healthy
+    environment: *environment
+    command: ["python", "-m", "cloud_points.manage", "worker"]
+volumes:
+  points_database:

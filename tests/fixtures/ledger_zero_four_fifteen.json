@@ -1,0 +1,46 @@
+{
+  "fixture_only": true,
+  "date": "2026-10-17",
+  "account_id": "user_lok",
+  "device_id": "android_shared_fixture",
+  "timezone": "Asia/Kolkata",
+  "stale_windows_score": 15,
+  "android_score_events": [
+    {
+      "event_id": "fixture-daily-reset",
+      "date": "2026-10-17",
+      "is_dev_mode": false,
+      "timestamp": "2026-10-17 00:00:00",
+      "event_type": "DAILY_RESET",
+      "description": "Daily reporting period started",
+      "points": 0,
+      "audit": {}
+    },
+    {
+      "event_id": "fixture-initial-reset",
+      "date": "2026-10-17",
+      "is_dev_mode": false,
+      "timestamp": "2026-10-17 09:00:00",
+      "event_type": "INITIAL_RESET",
+      "description": "User-requested initial balance reset",
+      "points": 0,
+      "audit": {
+        "action": "INITIAL_POINTS_RESET",
+        "reason": "User-requested reset"
+      }
+    },
+    {
+      "event_id": "fixture-sleep-bonus",
+      "date": "2026-10-17",
+      "is_dev_mode": false,
+      "timestamp": "2026-10-17 09:31:49",
+      "event_type": "MI_FITNESS_SLEEP_BONUS",
+      "description": "Mi Fitness sleep bonus: onset 12:33 AM, wake 9:24 AM",
+      "points": 4,
+      "evidence_id": "fixture-sleep-proof",
+      "audit": {
+        "evidence_id": "fixture-sleep-proof"
+      }
+    }
+  ]
+}

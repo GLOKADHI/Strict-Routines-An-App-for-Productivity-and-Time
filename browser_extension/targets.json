@@ -1,0 +1,273 @@
+{
+  "youtubemusic": {
+    "name": "YouTube Music",
+    "category": "Music/Audio",
+    "domains": [
+      "music.youtube.com"
+    ],
+    "thresholdSetting": "controlled_mode_threshold",
+    "defaultThreshold": 60,
+    "enabled": true
+  },
+  "youtube": {
+    "name": "YouTube",
+    "category": "Social Video",
+    "domains": [
+      "youtube.com",
+      "youtu.be",
+      "youtube-nocookie.com"
+    ],
+    "thresholdSetting": "reward_threshold",
+    "defaultThreshold": 80,
+    "enabled": true
+  },
+  "instagram": {
+    "name": "Instagram",
+    "category": "Social Video",
+    "domains": [
+      "instagram.com"
+    ],
+    "thresholdSetting": "reward_threshold",
+    "defaultThreshold": 80,
+    "enabled": true
+  },
+  "spotify": {
+    "name": "Spotify",
+    "category": "Music/Audio",
+    "domains": [
+      "open.spotify.com",
+      "spotify.com",
+      "play.spotify.com"
+    ],
+    "thresholdSetting": "controlled_mode_threshold",
+    "defaultThreshold": 60,
+    "enabled": true
+  },
+  "applemusic": {
+    "name": "Apple Music",
+    "category": "Music/Audio",
+    "domains": [
+      "music.apple.com"
+    ],
+    "thresholdSetting": "controlled_mode_threshold",
+    "defaultThreshold": 60,
+    "enabled": true
+  },
+  "amazonmusic": {
+    "name": "Amazon Music",
+    "category": "Music/Audio",
+    "domains": [
+      "music.amazon.com",
+      "music.amazon.in",
+      "music.amazon.co.uk",
+      "music.amazon.de",
+      "music.amazon.fr",
+      "music.amazon.ca",
+      "music.amazon.co.jp",
+      "music.amazon.es",
+      "music.amazon.it",
+      "music.amazon.com.au"
+    ],
+    "thresholdSetting": "controlled_mode_threshold",
+    "defaultThreshold": 60,
+    "enabled": true
+  },
+  "soundcloud": {
+    "name": "SoundCloud",
+    "category": "Music/Audio",
+    "domains": [
+      "soundcloud.com"
+    ],
+    "thresholdSetting": "controlled_mode_threshold",
+    "defaultThreshold": 60,
+    "enabled": true
+  },
+  "gaana": {
+    "name": "Gaana",
+    "category": "Music/Audio",
+    "domains": [
+      "gaana.com"
+    ],
+    "thresholdSetting": "controlled_mode_threshold",
+    "defaultThreshold": 60,
+    "enabled": true
+  },
+  "jiosaavn": {
+    "name": "JioSaavn",
+    "category": "Music/Audio",
+    "domains": [
+      "jiosaavn.com"
+    ],
+    "thresholdSetting": "controlled_mode_threshold",
+    "defaultThreshold": 60,
+    "enabled": true
+  },
+  "wynk": {
+    "name": "Wynk Music",
+    "category": "Music/Audio",
+    "domains": [
+      "wynk.in"
+    ],
+    "thresholdSetting": "controlled_mode_threshold",
+    "defaultThreshold": 60,
+    "enabled": true
+  },
+  "tidal": {
+    "name": "Tidal",
+    "category": "Music/Audio",
+    "domains": [
+      "tidal.com",
+      "listen.tidal.com"
+    ],
+    "thresholdSetting": "controlled_mode_threshold",
+    "defaultThreshold": 60,
+    "enabled": true
+  },
+  "deezer": {
+    "name": "Deezer",
+    "category": "Music/Audio",
+    "domains": [
+      "deezer.com"
+    ],
+    "thresholdSetting": "controlled_mode_threshold",
+    "defaultThreshold": 60,
+    "enabled": true
+  },
+  "pandora": {
+    "name": "Pandora",
+    "category": "Music/Audio",
+    "domains": [
+      "pandora.com"
+    ],
+    "thresholdSetting": "controlled_mode_threshold",
+    "defaultThreshold": 60,
+    "enabled": true
+  },
+  "bandcamp": {
+    "name": "Bandcamp",
+    "category": "Music/Audio",
+    "domains": [
+      "bandcamp.com"
+    ],
+    "thresholdSetting": "controlled_mode_threshold",
+    "defaultThreshold": 60,
+    "enabled": true
+  },
+  "masstamilan": {
+    "name": "masstamilan.dev",
+    "category": "Music/Website Target",
+    "domains": [
+      "masstamilan.dev",
+      "masstamilan.org",
+      "masstamilan.audio"
+    ],
+    "thresholdSetting": "controlled_mode_threshold",
+    "defaultThreshold": 60,
+    "enabled": true
+  },
+  "hungama": {
+    "name": "Hungama Music",
+    "category": "Music/Audio",
+    "domains": [
+      "hungama.com"
+    ],
+    "thresholdSetting": "controlled_mode_threshold",
+    "defaultThreshold": 60,
+    "enabled": true
+  },
+  "netflix": {
+    "name": "Netflix",
+    "category": "Video streaming",
+    "domains": [
+      "netflix.com"
+    ],
+    "thresholdSetting": "reward_threshold",
+    "defaultThreshold": 80,
+    "enabled": true
+  },
+  "facebook": {
+    "name": "Facebook",
+    "category": "Social Video",
+    "domains": [
+      "facebook.com",
+      "fb.watch",
+      "fb.com"
+    ],
+    "thresholdSetting": "reward_threshold",
+    "defaultThreshold": 80,
+    "enabled": true
+  },
+  "twitter": {
+    "name": "Twitter / X",
+    "category": "Social Video",
+    "domains": [
+      "twitter.com",
+      "x.com"
+    ],
+    "thresholdSetting": "reward_threshold",
+    "defaultThreshold": 80,
+    "enabled": true
+  },
+  "tiktok": {
+    "name": "TikTok",
+    "category": "Social Video",
+    "domains": [
+      "tiktok.com"
+    ],
+    "thresholdSetting": "reward_threshold",
+    "defaultThreshold": 80,
+    "enabled": true
+  },
+  "reddit": {
+    "name": "Reddit",
+    "category": "Social Video",
+    "domains": [
+      "reddit.com",
+      "v.redd.it",
+      "redd.it"
+    ],
+    "thresholdSetting": "reward_threshold",
+    "defaultThreshold": 80,
+    "enabled": true
+  },
+  "twitch": {
+    "name": "Twitch",
+    "category": "Social Video",
+    "domains": [
+      "twitch.tv"
+    ],
+    "thresholdSetting": "reward_threshold",
+    "defaultThreshold": 80,
+    "enabled": true
+  },
+  "vimeo": {
+    "name": "Vimeo",
+    "category": "Social Video",
+    "domains": [
+      "vimeo.com"
+    ],
+    "thresholdSetting": "reward_threshold",
+    "defaultThreshold": 80,
+    "enabled": true
+  },
+  "dailymotion": {
+    "name": "Dailymotion",
+    "category": "Social Video",
+    "domains": [
+      "dailymotion.com"
+    ],
+    "thresholdSetting": "reward_threshold",
+    "defaultThreshold": 80,
+    "enabled": true
+  },
+  "threads": {
+    "name": "Threads",
+    "category": "Social Video",
+    "domains": [
+      "threads.net"
+    ],
+    "thresholdSetting": "reward_threshold",
+    "defaultThreshold": 80,
+    "enabled": true
+  }
+}

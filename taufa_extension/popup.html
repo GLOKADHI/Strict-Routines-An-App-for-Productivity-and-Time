@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>StrictRecords · Taufa AI Bridge</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    body {
+      width: 360px;
+      background-color: #0b0f19;
+      color: #f5f7fb;
+      padding: 16px;
+      font-size: 13px;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #1c2638;
+    }
+    .logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+    }
+    .title-col h1 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #f5f7fb;
+      letter-spacing: -0.2px;
+    }
+    .title-col p {
+      font-size: 11px;
+      color: #94a3b8;
+    }
+    .card {
+      background-color: #101722;
+      border: 1px solid #1c2638;
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+    .status-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .status-row:last-child {
+      margin-bottom: 0;
+    }
+    .status-label {
+      color: #94a3b8;
+      font-size: 12px;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 9px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .pill-green {
+      background-color: #12342d;
+      color: #47e3b2;
+      border: 1px solid #1c5c4b;
+    }
+    .pill-red {
+      background-color: #3b181c;
+      color: #ff7582;
+      border: 1px solid #5c242b;
+    }
+    .pill-gray {
+      background-color: #1c2333;
+      color: #94a3b8;
+      border: 1px solid #2b354c;
+    }
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+    .dot-green { background-color: #00d69b; box-shadow: 0 0 6px #00d69b; }
+    .dot-red { background-color: #ff4757; }
+    .dot-gray { background-color: #94a3b8; }
+
+    .btn-primary {
+      width: 100%;
+      background: linear-gradient(135deg, #00d69b, #00b080);
+      color: #0b0f19;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: opacity 0.15s, transform 0.1s;
+      margin-bottom: 8px;
+    }
+    .btn-primary:hover { opacity: 0.92; }
+    .btn-primary:active { transform: scale(0.98); }
+
+    .btn-secondary {
+      width: 100%;
+      background-color: #162030;
+      color: #e2e8f0;
+      border: 1px solid #26334a;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .btn-secondary:hover { background-color: #1f2d44; }
+
+    .toast {
+      margin-top: 8px;
+      padding: 8px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      display: none;
+      word-break: break-all;
+    }
+    .toast-success {
+      background-color: #12342d;
+      color: #47e3b2;
+      border: 1px solid #1c5c4b;
+    }
+    .toast-error {
+      background-color: #3b181c;
+      color: #ff7582;
+      border: 1px solid #5c242b;
+    }
+
+    .section-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: #64748b;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Test scoring accordion/box */
+    .field-label {
+      font-size: 11px;
+      color: #94a3b8;
+      margin-bottom: 4px;
+      display: block;
+    }
+    select, textarea {
+      width: 100%;
+      background-color: #0b0f19;
+      border: 1px solid #26334a;
+      border-radius: 6px;
+      color: #f5f7fb;
+      padding: 6px 8px;
+      font-size: 12px;
+      margin-bottom: 8px;
+      outline: none;
+    }
+    select:focus, textarea:focus {
+      border-color: #00d69b;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 48px;
+    }
+
+    .score-badge {
+      display: inline-block;
+      font-size: 18px;
+      font-weight: 800;
+      color: #00d69b;
+      margin-right: 6px;
+    }
+    .score-result {
+      margin-top: 8px;
+      padding: 8px;
+      background-color: #0b0f19;
+      border: 1px solid #26334a;
+      border-radius: 6px;
+      font-size: 11px;
+      display: none;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+      font-size: 11px;
+      color: #64748b;
+    }
+    .footer a {
+      color: #00d69b;
+      text-decoration: none;
+    }
+    .footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <img src="icon48.png" class="logo" alt="Logo">
+    <div class="title-col">
+      <h1>StrictRecords</h1>
+      <p>Taufa AI Real-Time Bridge</p>
+    </div>
+  </div>
+
+  <!-- Status Card -->
+  <div class="card">
+    <div class="status-row">
+      <span class="status-label">Taufa.ai Session</span>
+      <span id="taufaStatusPill" class="pill pill-gray">
+        <span class="dot dot-gray"></span>
+        <span id="taufaStatusText">Checking...</span>
+      </span>
+    </div>
+    <div class="status-row">
+      <span class="status-label">StrictRecords Server</span>
+      <span id="serverStatusPill" class="pill pill-gray">
+        <span class="dot dot-gray"></span>
+        <span id="serverStatusText">Port 8765</span>
+      </span>
+    </div>
+  </div>
+
+  <!-- Capture Actions -->
+  <div class="card">
+    <button id="btnSyncCookies" class="btn-primary">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+      </svg>
+      Capture & Sync to StrictRecords
+    </button>
+    <button id="btnCopyCookies" class="btn-secondary">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+      </svg>
+      Copy Cookie Header to Clipboard
+    </button>
+    <div id="syncToast" class="toast"></div>
+  </div>
+
+  <!-- Real-Time Interactive Scoring Tester -->
+  <div class="card">
+    <div class="section-title">
+      <span>Test Live Scoring</span>
+      <span style="font-size:10px; color:#00d69b;">Direct AI</span>
+    </div>
+
+    <label class="field-label">Category</label>
+    <select id="testCategory">
+      <option value="STUDY">STUDY (Academic & Problem Solving)</option>
+      <option value="CODING">CODING (Programming & Projects)</option>
+      <option value="COLLEGE">COLLEGE (Lectures & Labs)</option>
+      <option value="EXERCISE">EXERCISE (Gym & Fitness)</option>
+      <option value="WORK">WORK (Professional Tasks)</option>
+    </select>
+
+    <label class="field-label">Description</label>
+    <textarea id="testDescription" placeholder="Describe the activity to evaluate...">Studying linear algebra chapter 3 on eigenvalues and matrix determinants with handwritten notes</textarea>
+
+    <button id="btnTestScore" class="btn-secondary" style="background:#132235; border-color:#204060; color:#5eead4;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="5 3 19 12 5 21 5 3"/>
+      </svg>
+      Ask Taufa.ai for Score
+    </button>
+
+    <div id="scoreResultBox" class="score-result">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:4px;">
+        <div>
+          <span class="score-badge" id="scoreDisplay">0/8</span>
+          <span id="scoreDecisionPill" class="pill pill-green">APPROVED</span>
+        </div>
+        <span id="scoreQualityText" style="color:#94a3b8; font-size:10px;">HIGH QUALITY</span>
+      </div>
+      <p id="scoreReasonText" style="color:#cbd5e1; margin-top:4px; line-height:1.4;"></p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>StrictRecords v1.18.0</span>
+    <a href="https://taufa.ai/chat" target="_blank">Open Taufa.ai ↗</a>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

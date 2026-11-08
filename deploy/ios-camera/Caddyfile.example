@@ -1,0 +1,12 @@
+# Supply a real public DNS hostname that you own. Never use tls internal here.
+{$STRICTRECORDS_IOS_CAMERA_HOSTNAME} {
+    tls {
+        protocols tls1.2 tls1.3
+    }
+    # Caddy ACME manages public certificates and renewal. Expose ONLY this
+    # dedicated gateway, never the main StrictRecords server on port 8765.
+    reverse_proxy 127.0.0.1:9443 {
+        header_up Host {host}
+        header_up X-StrictRecords-Proxy {$STRICTRECORDS_IOS_CAMERA_PROXY_SECRET}
+    }
+}

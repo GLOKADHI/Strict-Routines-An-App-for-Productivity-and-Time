@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Phase 2 & 7: Exact Wake-Up Alarm (07:00 AM) and Hourly Checkpoints (08:00-22:00) -->
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+
+    <!-- Phase 3 & 8: Camera Verification & Hourly/Bath/Gym Photo Evidence & Audio -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-feature android:name="android.hardware.camera.any" android:required="false" />
+
+    <!-- Phase 4: Bluetooth Earphone Verification -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission
+        android:name="android.permission.BLUETOOTH_SCAN"
+        android:usesPermissionFlags="neverForLocation"
+        tools:targetApi="s" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+
+    <!-- Phase 11 & 15: Two-Device Synchronization & AI Daily Report -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <!-- Phase 14 & 17: Android App Usage Tracking & Entertainment Control -->
+    <uses-permission
+        android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <!-- APK In-App Updater & Secure Package Installation -->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
+    <queries>
+        <!-- Visibility is limited to the four explicitly selectable app families. -->
+        <package android:name="com.instagram.android" />
+        <package android:name="com.instagram.lite" />
+        <package android:name="com.instander.android" />
+        <package android:name="com.aeroinsta.android" />
+        <package android:name="com.google.android.youtube" />
+        <package android:name="com.android.youtube" />
+        <package android:name="app.revanced.android.youtube" />
+        <package android:name="app.rvx.android.youtube" />
+        <package android:name="com.google.android.apps.youtube.mango" />
+        <package android:name="com.sec.android.app.music" />
+        <package android:name="com.spotify.music" />
+        <package android:name="com.spotify.lite" />
+        <package android:name="com.gaana" />
+        <package android:name="com.jio.media.jiobeats" />
+        <!-- Optional platform speech engines; text chat does not require them. -->
+        <intent>
+            <action android:name="android.speech.RecognitionService" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.TTS_SERVICE" />
+        </intent>
+    </queries>
+
+    <application
+        android:allowBackup="true"
+        android:fullBackupContent="@xml/google_auth_backup_rules"
+        android:dataExtractionRules="@xml/google_auth_extraction_rules"
+        android:icon="@drawable/ic_launcher"
+        android:roundIcon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
+        android:theme="@android:style/Theme.DeviceDefault.NoActionBar">
+
+        <service android:name=".PointsCloudJobService" android:permission="android.permission.BIND_JOB_SERVICE" android:exported="true" />
+        <service android:name=".AiHealthCheckJobService" android:permission="android.permission.BIND_JOB_SERVICE" android:exported="false" />
+        <service android:name=".ProofUploadJobService" android:permission="android.permission.BIND_JOB_SERVICE" android:exported="false" />
+        <service android:name=".ProofWindowPreflightJobService" android:permission="android.permission.BIND_JOB_SERVICE" android:exported="false" />
+        <receiver android:name=".ProofWindowPreflightReceiver" android:exported="false" />
+        <receiver android:name=".DemoAccessExpiryReceiver" android:exported="false" />
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="unspecified"
+            android:showWhenLocked="true"
+            android:turnScreenOn="true"
+            android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout|density|keyboardHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+
+        <activity
+            android:name=".QrScannerActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:theme="@android:style/Theme.DeviceDefault.NoActionBar" />
+
+        <activity
+            android:name=".StrictBotReminderActivity"
+            android:exported="false"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask"
+            android:taskAffinity="com.strictrecords.app.reminders"
+            android:showWhenLocked="true"
+            android:turnScreenOn="true"
+            android:theme="@android:style/Theme.DeviceDefault.NoActionBar" />
+
+        <receiver
+            android:name=".StrictRecordsBootReceiver"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".StrictSessionCommandReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.strictrecords.app.ACTION_PREPARE_STRICT_SESSION" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".BankingBreakResumeReceiver"
+            android:exported="false" />
+
+        <receiver
+            android:name=".WakeUpAlarmReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.strictrecords.app.ACTION_WAKEUP_PREP" />
+                <action android:name="com.strictrecords.app.ACTION_WAKEUP_ALARM" />
+                <action android:name="com.strictrecords.app.ACTION_HOURLY_CHECKPOINT" />
+                <action android:name="com.strictrecords.app.ACTION_GYM_REMINDER" />
+                <action android:name="com.strictrecords.app.ACTION_ACTIVITY_PRE_OPENING" />
+                <action android:name="com.strictrecords.app.ACTION_ACTIVITY_OPENED" />
+                <action android:name="com.strictrecords.app.ACTION_ACTIVITY_WARN1M" />
+                <action android:name="com.strictrecords.app.ACTION_ACTIVITY_CLOSED" />
+                <action android:name="com.strictrecords.app.ACTION_SCHEDULE_DEADLINE_10AM" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".StrictRecordsAdminReceiver"
+            android:label="@string/app_name"
+            android:description="@string/device_admin_description"
+            android:permission="android.permission.BIND_DEVICE_ADMIN"
+            android:exported="true">
+            <meta-data
+                android:name="android.app.device_admin"
+                android:resource="@xml/device_admin_policies" />
+            <intent-filter>
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".StrictRecordsWidgetProvider"
+            android:label="@string/widget_m1_name"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/strict_widget_m1_info" />
+        </receiver>
+
+        <!-- In-App APK Updater Notification Action Receiver -->
+        <receiver
+            android:name=".UpdateActionReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.strictrecords.app.ACTION_UPDATE_NOW" />
+                <action android:name="com.strictrecords.app.ACTION_UPDATE_LATER" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".AppUpdateInstallReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Accessibility Grace Period & Enforcement Fallback Alarm Receiver -->
+        <receiver
+            android:name=".AccessibilityGraceAlarmReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.strictrecords.app.ACTION_CHECK_ACCESSIBILITY_GRACE" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Schedule-Aware Battery Optimization & Night Quiet Mode Alarm Receiver -->
+        <receiver
+            android:name=".StrictRecordsPowerReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.strictrecords.app.ACTION_NIGHT_QUIET_START" />
+                <action android:name="com.strictrecords.app.ACTION_NIGHT_QUIET_END" />
+                <action android:name="com.strictrecords.app.ACTION_POWER_TRANSITION" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Discipline Enforcement & StrictBot Productivity Popup Activity Fallback -->
+        <activity
+            android:name=".RestrictionLockActivity"
+            android:exported="false"
+            android:excludeFromRecents="true"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <service
+            android:name=".AndroidStrictMonitoringService"
+            android:foregroundServiceType="dataSync"
+            android:exported="false" />
+
+        <service
+            android:name=".StrictEnforcementService"
+            android:foregroundServiceType="specialUse|connectedDevice"
+            android:exported="false">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="Persistent on-device discipline enforcement and local Wi-Fi update notifications" />
+        </service>
+
+        <service
+            android:name=".WakeUpPlaybackService"
+            android:foregroundServiceType="mediaPlayback"
+            android:exported="false" />
+
+        <service
+            android:name=".StrictAccessibilityService"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_service_config" />
+        </service>
+
+        <service
+            android:name=".StrictMediaNotificationListener"
+            android:label="StrictRecords Media &amp; Background Restriction Service"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
+
+        <!-- Secure In-App Updater FileProvider (Requirement 8) -->
+        <provider
+            android:name=".StrictFileProvider"
+            android:authorities="com.strictrecords.app.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true" />
+
+
+        <activity android:name=".StrictWidgetConfigurationActivity" android:exported="true" android:label="StrictRoutines Widgets">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/></intent-filter>
+        </activity>
+        <receiver android:name=".StrictWidgetPinReceiver" android:exported="false"/>
+        <receiver android:name=".StrictNextTaskWidget" android:label="@string/widget_s1_name" android:exported="false">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE"/></intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/strict_widget_s1_info"/>
+        </receiver>
+        <receiver android:name=".StrictWindowWidget" android:label="@string/widget_s2_name" android:exported="false">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE"/></intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/strict_widget_s2_info"/>
+        </receiver>
+        <receiver android:name=".StrictPointsWidget" android:label="@string/widget_s3_name" android:exported="false">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE"/></intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/strict_widget_s3_info"/>
+        </receiver>
+        <receiver android:name=".StrictMonitoringWidget" android:label="@string/widget_s4_name" android:exported="false">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE"/></intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/strict_widget_s4_info"/>
+        </receiver>
+        <receiver android:name=".StrictRewardWidget" android:label="@string/widget_m2_name" android:exported="false">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE"/></intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/strict_widget_m2_info"/>
+        </receiver>
+        <receiver android:name=".StrictScheduleWidget" android:label="@string/widget_l1_name" android:exported="false">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE"/></intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/strict_widget_l1_info"/>
+        </receiver>
+        <receiver android:name=".StrictCategoriesWidget" android:label="@string/widget_l2_name" android:exported="false">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE"/></intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/strict_widget_l2_info"/>
+        </receiver>
+        <receiver android:name=".StrictDevicesWidget" android:label="@string/widget_l3_name" android:exported="false">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE"/></intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/strict_widget_l3_info"/>
+        </receiver>
+    </application>
+</manifest>

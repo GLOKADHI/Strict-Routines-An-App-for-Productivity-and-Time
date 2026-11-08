@@ -1,0 +1,13 @@
+**
+!cloud_points/
+!cloud_points/*.py
+!cloud_points/requirements.txt
+!cloud_points/Dockerfile
+!core/
+!core/android_ledger.py
+**/.env
+**/*.enc
+**/*credentials*
+**/*client_secret*
+**/__pycache__/
+**/*.db

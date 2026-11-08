@@ -19,7 +19,6 @@ github:
 exclude:
   - android
   - ios
-  - assets
   - browser_extension
   - browser_extension_monitor
   - cloud_points

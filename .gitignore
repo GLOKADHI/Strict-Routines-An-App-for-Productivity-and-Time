@@ -171,7 +171,7 @@ cloud_points/.env
 *.DS_Store
 Thumbs.db
 
-# These source templates contain empty setup objects. Browser-specific copies
+# These source templates contain empty setup defaults. Browser-specific copies
 # and enrollment identities remain excluded above and outside the source tree.
 !/browser_extension/setup-config.js
 !/browser_extension_monitor/setup-config.js
